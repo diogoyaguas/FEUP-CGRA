@@ -15,37 +15,67 @@ class MyPrism extends CGFobject
 	initBuffers() 
 	{
 		this.vertices = [];
-		this.indices = [];
-
-		let ang = 0;
-		let teta = Math.PI * 2 / this.slices;
+ 		this.normals = [];
+ 		this.indices = [];
 	
-		for (let i = 0; i < this.slices; i++){
-			this.vertices.push(Math.cos(ang), Math.sen(ang), 0);
-			this.vertices.push(Math.cos(ang), Math.sen(ang), 1);
-			ang += teta;
-			this.vertices.push(Math.cos(ang), Math.sen(ang), 0);
-			this.vertices.push(Math.cos(ang), Math.sen(ang), 1);
-			for(let j = 0 ; j < 4; j++){
-				this.normals.push(Math.cos(ang+teta/2), Math.sen(ang + teta/2),0);
-			}
+	var angle = (2*Math.PI)/this.slices;
+
+	for (var j = 0; j < this.stacks; j++) {
+		//---------------slices------------------
+		for (var i = 0; i < this.slices; i++) {
+
+		this.vertices.push(Math.cos(i*angle));
+		this.vertices.push(Math.sin(i*angle));
+		this.vertices.push(j);
+
+		this.vertices.push(Math.cos((i+1)*angle));
+		this.vertices.push(Math.sin((i+1)*angle));
+		this.vertices.push(j);
+
+		this.vertices.push(Math.cos(i*angle));
+		this.vertices.push(Math.sin(i*angle));
+		this.vertices.push(j+1);
+
+		this.vertices.push(Math.cos((i+1)*angle));
+		this.vertices.push(Math.sin((i+1)*angle));
+		this.vertices.push(j+1);
+
+		//----------------------------------------------------------------
+
+		this.indices.push(this.slices*4*j+4*i);
+		this.indices.push(this.slices*4*j+4*i+1);
+		this.indices.push(this.slices*4*j+4*i+2);
+
+		this.indices.push(this.slices*4*j+4*i+3);
+		this.indices.push(this.slices*4*j+4*i+2);
+		this.indices.push(this.slices*4*j+4*i+1);
+
+		//----------------------------------------------------------------
+
+
+		this.normals.push(Math.cos(angle*(i+0.5)));
+		this.normals.push(Math.sin(angle*(i+0.5)));
+		this.normals.push(0);
+
+		this.normals.push(Math.cos(angle*(i+0.5)));
+		this.normals.push(Math.sin(angle*(i+0.5)));
+		this.normals.push(0);
+
+		this.normals.push(Math.cos(angle*(i+0.5)));
+		this.normals.push(Math.sin(angle*(i+0.5)));
+		this.normals.push(0);
+
+		this.normals.push(Math.cos(angle*(i+0.5)));
+		this.normals.push(Math.sin(angle*(i+0.5)));
+		this.normals.push(0);
+
+
 		}
 
-		for (let i = 0; i < this.slices; i++){
-			this.indices.push(i, i+1, i+2);
-			this.indices.push(i+2, i+3, i+4); 
-		}
+	}
+
 		
-		this.indices = [];
-
 		this.primitiveType = this.scene.gl.TRIANGLES;
-
-		this.normals = [
-		0, 0, 1, 
-		0, 0, 1, 
-		0, 0, 1, 
-		0, 0, 1
-		];
 		
 		this.initGLBuffers();
 	};
