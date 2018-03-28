@@ -28,13 +28,12 @@ class LightingScene extends CGFscene
 		this.gl.depthFunc(this.gl.LEQUAL);
 
 		this.axis = new CGFaxis(this);
-
-		this.materialDefault = new CGFappearance(this);
 	
 		this.prism = new MyPrism(this, 8, 20);
 		this.cylinder = new MyCylinder(this, 8, 20);
-		
-		
+		this.lamp = new MyLamp(this, 80, 80);
+
+		this.materialDefault = new CGFappearance(this);
 	};
 
 	initCameras() 
@@ -114,11 +113,11 @@ class LightingScene extends CGFscene
 
 		this.materialDefault.apply();
 
-		//display prism
+	
 		//this.prism.display();
+		 
+		//this.cylinder.display();
 
-		//display cylinder 
-		this.cylinder.display();
-
+		this.lamp.display();
 	};
 };
