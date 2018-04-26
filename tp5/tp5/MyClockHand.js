@@ -7,10 +7,6 @@ class MyClockHand extends CGFobject
 		this.initBuffers();
 	};
 
-	setAngle(angle) {
-	this.angle = angle;
-	};
-
 	initBuffers() 
 	{
 		this.vertices = [];
@@ -30,4 +26,9 @@ class MyClockHand extends CGFobject
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
+	
+	setAngle(angle) {
+	this.angle = angle;
+	};
+
 };

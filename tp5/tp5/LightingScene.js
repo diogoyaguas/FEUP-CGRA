@@ -43,9 +43,9 @@ class LightingScene extends CGFscene
 		this.prism = new MyPrism(this, 8, 10);
 		this.cylinder = new MyCylinder(this, 8, 20);
 		this.lamp = new MyLamp(this, 8, 20);
-		this.circle = new MyCircle(this, 8, 20);
 
 		this.clock = new MyClock(this);
+		
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -104,12 +104,6 @@ class LightingScene extends CGFscene
 		this.boardAppearance.setShininess(50);
 		this.boardAppearance.loadTexture("../resources/images/board.png");
 
-		this.clockAppearance = new CGFappearance(this);
-		this.clockAppearance.setAmbient(0.5, 0.5, 0.5, 1);
-        this.clockAppearance.setDiffuse(0.5,0.5,0.5,1);
-        this.clockAppearance.setSpecular(0.8, 0.8, 0.8, 1);
-		this.clockAppearance.setShininess(50);
-		this.clockAppearance.loadTexture("../resources/images/clock.png");
 
 	};
 
@@ -280,15 +274,7 @@ class LightingScene extends CGFscene
 			this.translate(7.5, 7.3, 0);
 			this.scale(0.5, 0.5, 0.2);
 			this.clock.display();
-		this.popMatrix();
-
-		// Circle
-		this.pushMatrix();
-			this.translate(7.5,7.3,0.2);
-			this.scale(0.5, 0.5, 0.2);
-			this.clockAppearance.apply();
-			this.circle.display();
-		this.popMatrix();
+		this.popMatrix();	
 	
 		// ---- END Scene drawing section
 	};
