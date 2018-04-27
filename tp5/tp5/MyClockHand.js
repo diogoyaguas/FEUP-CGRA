@@ -1,34 +1,30 @@
 class MyClockHand extends CGFobject
 {
-	constructor(scene, length, angle) {
-        super(scene);
-        this.length = length;
-        this.angle = angle;
-		this.initBuffers();
-	};
-
-	initBuffers() 
+	constructor(scene, width, height) 
 	{
-		this.vertices = [];
- 		this.indices = [];
-		this.normals = [];
+        super(scene);
+        this.pointer = new MyUnitCubeQuad(this.scene);
+	    this.width = width;
+        this.height = height;
+	    this.angle = 0;
+    };
 
-		this.vertices.push(0,this.length,0);
-		this.vertices.push(0.02,0,0);
-		this.vertices.push(-0.02,0,0);
+    setAngle(angle){
+        this.angle = angle * Math.PI / 180;
+    };
 
-		this.normals.push(0,0,1);	
-		this.normals.push(0,0,1);
-		this.normals.push(0,0,1);
+    getAngle(){
+        return this.angle * 180 / Math.PI;
+    };
+    
+	display() 
+	{
+        this.scene.pushMatrix();
+            this.scene.rotate(Math.PI/2 - this.angle, 0, 0, 1);
+            this.scene.scale(this.width, this.height, 0.05);
+            this.scene.translate(0.5, 0, 0);
+            this.pointer.display();
+        this.scene.popMatrix();
 
-		this.indices.push(0,2,1);
-		
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
 	};
-	
-	setAngle(angle) {
-	this.angle = angle;
-	};
-
 };

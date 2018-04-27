@@ -45,7 +45,6 @@ class LightingScene extends CGFscene
 		this.lamp = new MyLamp(this, 8, 20);
 
 		this.clock = new MyClock(this);
-		
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -104,7 +103,7 @@ class LightingScene extends CGFscene
 		this.boardAppearance.setShininess(50);
 		this.boardAppearance.loadTexture("../resources/images/board.png");
 
-
+		this.setUpdatePeriod(100);
 	};
 
 	initCameras() 
@@ -274,8 +273,12 @@ class LightingScene extends CGFscene
 			this.translate(7.5, 7.3, 0);
 			this.scale(0.5, 0.5, 0.2);
 			this.clock.display();
-		this.popMatrix();	
-	
+		this.popMatrix();
+
 		// ---- END Scene drawing section
+	};
+
+	update(currTime){
+		this.clock.update(currTime);
 	};
 };

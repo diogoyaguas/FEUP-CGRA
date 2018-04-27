@@ -2,12 +2,20 @@ class MyClock extends CGFobject
 {
 	constructor(scene) 
 	{
-        super(scene);
+          super(scene);
+        this.lastUpdate = (new Date).getTime();
+
+        this.clockFace = new MyCircle(scene, 12);
         this.cylinder = new MyCylinder(scene, 12, 1);
-        this.circle = new MyCircle(scene, 8, 20);
-        this.hourHand =  new MyClockHand(scene, 0.4, 0);
-		this.minuteHand =  new MyClockHand(scene, 0.7, 0);
-		this.secondHand =  new MyClockHand(scene, 0.2, 0);
+
+        this.hoursCh = new MyClockHand(scene, 0.3, 0.03);
+        this.hoursCh.setAngle(90);
+
+        this.minutesCh = new MyClockHand(scene, 0.5, 0.03);
+        this.minutesCh.setAngle(180);
+
+        this.secondsCh = new MyClockHand(scene, 0.55, 0.03);
+        this.secondsCh.setAngle(270);
 
         this.clockAppearance = new CGFappearance(scene);
 		this.clockAppearance.setAmbient(1, 1, 1, 1);
@@ -32,32 +40,37 @@ class MyClock extends CGFobject
 	display() 
 	{	
 		this.cylinder.display();
+        this.scene.pushMatrix();
+            this.clockAppearance.apply();
+            this.scene.translate(0, 0 , 1);
+            this.clockFace.display();
+        this.scene.popMatrix();
 
-	this.scene.pushMatrix();
-		this.materialBlackPointer.apply();
-		this.scene.translate(0, 0, 1.010);
-		this.hourHand.setAngle(Math.PI/2);
-		this.hourHand.display();
-	this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.materialBlackPointer.apply();
+            this.scene.translate(0, 0 , 1.1);
+            this.hoursCh.display();
+        this.scene.popMatrix();
 
-	this.scene.pushMatrix();
-		this.materialBlackPointer.apply();
-		this.scene.translate(0, 0, 1.012);
-		this.minuteHand.setAngle(Math.PI);
-		this.minuteHand.display();
-	this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.materialBlackPointer.apply();
+            this.scene.translate(0, 0 , 1.1);
+            this.minutesCh.display();
+        this.scene.popMatrix();
 
-	this.scene.pushMatrix();
-		this.materialYellowPointer.apply();
-		this.scene.translate(0, 0, 1.015);
-		this.secondHand.display();
-	this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.materialYellowPointer.apply();
+            this.scene.translate(0, 0 , 1.1);
+            this.secondsCh.display();
+        this.scene.popMatrix();
+    };
 
-	this.scene.pushMatrix();
-		this.clockAppearance.apply();
-		this.scene.translate(0, 0, 0.95);
-		this.secondHand.setAngle(3*Math.PI/2);
-		this.circle.display();
-	this.scene.popMatrix();
-	};
+    update(currTime){          
+        let time = (currTime - this.lastUpdate);
+        this.lastUpdate = currTime;
+
+        this.hoursCh.setAngle(this.hoursCh.getAngle() + time/1000 * 360/60/60/60);
+        this.minutesCh.setAngle(this.minutesCh.getAngle() + time/1000 * 360/60/60);
+        this.secondsCh.setAngle(this.secondsCh.getAngle() + time/1000 * 360/60);
+    };
 };
