@@ -21,13 +21,16 @@ class MyVehicle extends CGFobject
         this.structure = new MyVehicleStructure(this.scene, this.angle_wheel);
         this.angle_wheel = 0;
         this.rotate_wheel = 0;
+        this.rotate_body = 0;
 
     };
     
     display() {
 
         this.scene.pushMatrix();
+           this.scene.rotate(this.rotate_body, 0, 1, 0);
         this.scene.translate(this.x, 0, this.z);
+     
         this.scene.rotate(-45*degToRad,0,1,0);
         this.structure.display();
         this.scene.popMatrix();
@@ -39,15 +42,16 @@ class MyVehicle extends CGFobject
 	this.x += this.velocity * UPDATE_TIME * Math.sin(this.degree);
 	this.z += this.velocity * UPDATE_TIME * Math.sin(this.degree);
 	this.angle_wheel += this.velocity * 2;
-	if(this.rotate_wheel > 0){
+	if(this.rotate_wheel > 0.01){
 	this.rotate_wheel -= 0.03;
 	}
-	else if(this.rotate_wheel < 0){
+	else if(this.rotate_wheel < -0.01){
 		this.rotate_wheel += 0.03;
 	}
 	this.structure.front_wheel.setAngle(this.angle_wheel);
 	this.structure.back_wheel.setAngle(this.angle_wheel);
 	this.structure.front_wheel.setRotate(this.rotate_wheel);
+	this.rotate_body += this.velocity * this.rotate_wheel;
    
     }
 	
@@ -71,7 +75,7 @@ class MyVehicle extends CGFobject
 
 		if(this.rotate_wheel < Math.PI / 5.5) {
 
-			this.rotate_wheel += ANGLE_INC
+			this.rotate_wheel += ANGLE_INC;
 		}
 	}
 
@@ -79,7 +83,7 @@ class MyVehicle extends CGFobject
 
 		if(this.rotate_wheel > - Math.PI / 5.5) {
 
-			this.rotate_wheel -= ANGLE_INC
+			this.rotate_wheel -= ANGLE_INC;
 		}
 	}
 };
