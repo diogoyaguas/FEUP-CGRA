@@ -36,7 +36,7 @@ class LightingScene extends CGFscene
 		this.Light2 = true; 
 		this.Light3 = true;
 		this.Light4 = true;
-		this.Axis = false;
+		this.show_axis = false;
 		this.Speed = 3;
 
 		// Scene elements
@@ -66,19 +66,19 @@ class LightingScene extends CGFscene
 		
 		// Positions for four lights
 		this.lights[0].setPosition(4, 6, 1, 1);
-		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 		
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[1].setVisible(false); // show marker on light position (different from enabled)
 
 		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		this.lights[2].setVisible(true);
+		this.lights[2].setVisible(false);
 
 		this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
-		this.lights[3].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[3].setVisible(false); // show marker on light position (different from enabled)
 
 		this.lights[4].setPosition(1, 4, 7.5, 1.0);
-		this.lights[2].setVisible(true);
+		this.lights[4].setVisible(false); // show marker on light position (different from enabled)
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -111,7 +111,6 @@ class LightingScene extends CGFscene
 		this.lights[4].setConstantAttenuation(0);
 		this.lights[4].setLinearAttenuation(0);
 		this.lights[4].setQuadraticAttenuation(0.2);
-		this.lights[4].setVisible(false);
 		this.lights[4].enable();
 
 	};
@@ -158,6 +157,18 @@ class LightingScene extends CGFscene
 		this.car.moveBackward();
 	}
 
+	if(this.gui.isKeyPressed("KeyA")){
+		text+=" A ";
+		keysPressed = true;
+		this.car.moveLeft();
+	}
+
+	if(this.gui.isKeyPressed("KeyD")){
+		text+=" D ";
+		keysPressed = true;
+		this.car.moveRight();
+	}
+
 	if (keysPressed)
 		console.log(text);
 	}
@@ -182,7 +193,7 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		if(this.Axis)
+		if(this.show_axis)
 			this.axis.display();
 
 		this.materialDefault.apply();
@@ -220,6 +231,11 @@ class LightingScene extends CGFscene
 	update(currTime){
 		this.car.update(currTime);
 	};
+
+	Axis(){
+
+		this.show_axis = !this.show_axis;
+	}
 
 };
 

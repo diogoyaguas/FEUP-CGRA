@@ -11,58 +11,50 @@ class MyVehicleStructure extends CGFobject
         super(scene);
         this.quad=new MyUnitCubeQuad(this.scene); 
         this.quad2=new MyUnitCubeQuad(this.scene); 
-        this.rodas= new MyCylinder(this.scene, 10, 2);
+        this.front_wheel = new MyWheel(this.scene);
+        this.back_wheel = new MyWheel(this.scene);
 
     };
     
     display() {
 
-		//corpo baixo
+		//body
         this.scene.pushMatrix();
         this.scene.translate(3, 0, 0);
-        this.scene.rotate(-45*degToRad,0,1,0);
         this.scene.scale(4.5, 1.2, 2.5);
         this.quad.display();
         this.scene.popMatrix();
 
-	
-		//corpo cima
+		//body 
         this.scene.pushMatrix();
         this.scene.translate(3, 1, 0);
-        this.scene.rotate(-45*degToRad,0,1,0);
         this.scene.scale(3, 0.8, 1.5);
         this.quad2.display();
         this.scene.popMatrix();
         
-        /*
-        //roda traseira 1
+        //back_wheel 1
         this.scene.pushMatrix();
-        this.scene.translate(1.7, -0.7, 1.1);
-        this.scene.scale(0.4, 0.4, 0.4);
-        this.rodas.display();
+        this.scene.translate(1.7, -0.7, 1);
+        this.front_wheel.display();
         this.scene.popMatrix();
 
-        //roda dianteira 1
+        //front_wheel 1
         this.scene.pushMatrix();
-        this.scene.translate(4.4, -0.7, 1.1);
-        this.scene.scale(0.4, 0.4, 0.4);
-        this.rodas.display();
+        this.scene.translate(4.4, -0.7, 1);
+        this.back_wheel.display();
         this.scene.popMatrix();
 
-        //roda traseira 2
+        //back_wheel 2
         this.scene.pushMatrix();
-        this.scene.translate(1.7, -0.7, 1.1);
-        this.scene.scale(0.4, 0.4, -2.6);
-        this.rodas.display();
+        this.scene.translate(1.7, -0.7, -1.4);
+        this.front_wheel.display();
         this.scene.popMatrix();
 
-        //roda dianteira 2
+        //front_wheel 2
         this.scene.pushMatrix();
-        this.scene.translate(4.4, -0.7, 1.1);
-        this.scene.scale(0.4, 0.4, -2.6);
-        this.rodas.display();
+        this.scene.translate(4.4, -0.7, -1.4);
+        this.back_wheel.display();
         this.scene.popMatrix();
-        */
-
+       
     }
 };
