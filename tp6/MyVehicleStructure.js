@@ -12,6 +12,7 @@ class MyVehicleStructure extends CGFobject
         this.quad=new MyUnitCubeQuad(this.scene); 
         this.front_wheel = new MyWheel(this.scene);
         this.back_wheel = new MyWheel(this.scene);
+        this.substitute_wheel = new MyWheel(this.scene);
         this.sphere = new MySemiSphere(this.scene, 5, 5);
         this.trapezius = new MyTrapezius(this.scene,0.8,1.2,0.3);
 		//this.cylinder = new MyCylinder(this,scene, 5, 5);
@@ -30,14 +31,52 @@ class MyVehicleStructure extends CGFobject
     	this.yellowMetalAppearence.setShininess(10);
     	this.yellowMetalAppearence.loadTexture("resources/images/yellow.png");
 
+    	this.blackMetalAppearence = new CGFappearance(this.scene);
+    	this.blackMetalAppearence.setAmbient(0.3, 0.3, 0.3, 1);
+    	this.blackMetalAppearence.setDiffuse(0.9, 0.9, 0.9, 1);
+    	this.blackMetalAppearence.setSpecular(0.1, 0.1, 0.1, 1);
+    	this.blackMetalAppearence.setShininess(10);
+    	this.blackMetalAppearence.loadTexture("resources/images/black.png");
+
     };
     
     display() {
+
+    	// farol
+        this.scene.pushMatrix();
+        this.scene.translate(0.75, 0.5, -0.45);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+        this.scene.scale(0.25, 0.25, 0.25);
+        this.sphere.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.75, 0.5, 0.45);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+        this.scene.scale(0.25, 0.25, 0.25);
+        this.sphere.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.75, 0.15, 0.25);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+        this.scene.scale(0.15, 0.15, 0.15);
+        this.sphere.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.75, 0.15, -0.25);
+        this.scene.rotate(-Math.PI / 2, 0, 1, 0);
+        this.scene.scale(0.15, 0.15, 0.15);
+        this.sphere.display();
+        this.scene.popMatrix();
+
 
 		//body down
         this.scene.pushMatrix();
         this.scene.translate(3, 0.1, 0);
         this.scene.scale(4, 0.2, 2.5);
+        this.blackMetalAppearence.apply();
         this.quad.display();
         this.scene.popMatrix();
 
@@ -106,8 +145,8 @@ class MyVehicleStructure extends CGFobject
 
         //body up right front
         this.scene.pushMatrix();
-        this.scene.translate(2.06, 1.7, 1.1);
-        this.scene.scale(0.72, 1.1, 0.3);
+        this.scene.translate(2.06, 1.7, 1.12);
+        this.scene.scale(0.72, 0.9, 0.25);
         this.quad.display();
         this.scene.popMatrix();
 
@@ -127,8 +166,8 @@ class MyVehicleStructure extends CGFobject
 
         //body up right front
         this.scene.pushMatrix();
-        this.scene.translate(2.06, 1.7, -1.1);
-        this.scene.scale(0.72, 1.1, 0.3);
+        this.scene.translate(2.06, 1.7, -1.12);
+        this.scene.scale(0.72, 0.9, 0.25);
         this.quad.display();
         this.scene.popMatrix();
 
@@ -229,6 +268,16 @@ class MyVehicleStructure extends CGFobject
         this.scene.translate(4.4, -0.7, -1.4);
         this.back_wheel.display();
         this.scene.popMatrix();
+
+        // substitute_wheel
+        this.scene.pushMatrix();
+        this.scene.translate(5, 0.45, -0.08);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.back_wheel.display();
+        this.scene.popMatrix();
+
+        
+
 
 
        

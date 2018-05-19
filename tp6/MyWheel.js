@@ -38,13 +38,6 @@ class MyWheel extends CGFobject
         this.scene.rotate(this.rotate_wheel, 0, 1, 0);
         this.scene.rotate(this.angle_wheel, 0, 0, 1);
 
-
-	    this.scene.pushMatrix();
-	    this.scene.scale(0.5, 0.5, 0.4);
-	    this.tire.apply();
-	    this.cylinder.display();
-	    this.scene.popMatrix();
-
 	    this.scene.pushMatrix();
 	    this.scene.translate(0, 0, 0.40);
 	    this.scene.scale(0.5, 0.5, 0.25);
@@ -58,6 +51,12 @@ class MyWheel extends CGFobject
 	    this.scene.scale(0.5, 0.5, 0.25);
 	    this.rim.apply();
 	    this.circle.display();
+	    this.scene.popMatrix();
+
+	    this.scene.pushMatrix();
+	    this.scene.scale(0.5, 0.5, 0.4);
+	    this.tire.apply();
+	    this.cylinder.display();
 	    this.scene.popMatrix();
 
 	    this.scene.popMatrix();
