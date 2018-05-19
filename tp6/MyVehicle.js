@@ -28,9 +28,8 @@ class MyVehicle extends CGFobject
     display() {
 
         this.scene.pushMatrix();
-           this.scene.rotate(this.rotate_body, 0, 1, 0);
-        this.scene.translate(this.x, 0, this.z);
-     
+        this.scene.rotate(this.rotate_body, 0, 1, 0);
+        this.scene.translate(this.x, 1, this.z);
         this.scene.rotate(-45*degToRad,0,1,0);
         this.structure.display();
         this.scene.popMatrix();

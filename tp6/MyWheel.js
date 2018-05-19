@@ -13,7 +13,7 @@ class MyWheel extends CGFobject
         this.circle = new MyCircle(this.scene, 30, 1);
 
         this.tire = new CGFappearance(this.scene);
-		this.tire.loadTexture("resources/images/tire.png");
+		this.tire.loadTexture("resources/images/tire.jpg");
 		this.tire.setAmbient(0.3,0.3,0.3,1);
 		this.tire.setDiffuse(0.6,0.6,0.6,1);
 		this.tire.setSpecular(0,0.2,0.8,1);

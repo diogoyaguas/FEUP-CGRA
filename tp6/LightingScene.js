@@ -31,6 +31,17 @@ class LightingScene extends CGFscene
 		this.gl.enable(this.gl.CULL_FACE);
 		this.gl.depthFunc(this.gl.LEQUAL);
 
+		this.altimetry= [[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , .0, 0.0, -3.0, -2.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, -4.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 1.4, 0.0, 0.0, 0.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 2.5, 3.3, 5.0, 0.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 4.7, 4.5, 4.0, 0.0 ],
+[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+];
+
 		this.axis = new CGFaxis(this);
 		this.Light1 = true; 
 		this.Light2 = true; 
@@ -41,7 +52,8 @@ class LightingScene extends CGFscene
 
 		// Scene elements
 		this.car = new MyVehicle(this);
-		this.terrain = new MyTerrain(this);
+		this.terrain = new MyTerrain(this, 8, this.altimetry);
+		this.lake = new Plane(this, 4, 0, 150, 0, 150);
 
 		// Materials
 		this.materialDefault = new CGFappearance(this);
@@ -52,7 +64,18 @@ class LightingScene extends CGFscene
 		this.floorAppearence.setSpecular(0,0.2,0.8,1);
 		this.floorAppearence.setShininess(120);
 
+		this.materialDefault = new CGFappearance(this);
+		this.water = new CGFappearance(this);
+		this.water.loadTexture("resources/images/water.jpg");
+		this.water.setAmbient(0.3,0.3,0.3,1);
+		this.water.setDiffuse(0.6,0.6,0.6,1);
+		this.water.setSpecular(0,0.2,0.8,1);
+		this.water.setShininess(120);
+
 		this.setUpdatePeriod(UPDATE_TIME*1000);
+
+
+
 	};
 
 	initCameras() 
@@ -65,7 +88,7 @@ class LightingScene extends CGFscene
 		this.setGlobalAmbientLight(0, 0, 0, 1.0);
 		
 		// Positions for four lights
-		this.lights[0].setPosition(4, 6, 1, 1);
+		this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
 		this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 		
 		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
@@ -74,11 +97,14 @@ class LightingScene extends CGFscene
 		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
 		this.lights[2].setVisible(false);
 
-		this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
+		this.lights[3].setPosition(4.0, 6.0, 5.0, 1.0);
 		this.lights[3].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[4].setPosition(1, 4, 7.5, 1.0);
+		this.lights[4].setPosition(-10, 4.0, 10, 1.0);
 		this.lights[4].setVisible(false); // show marker on light position (different from enabled)
+
+		this.lights[5].setPosition(-8.0, 6.0, -8.0, 1.0);
+		this.lights[5].setVisible(false); // show marker on light position (different from enabled)
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -105,13 +131,18 @@ class LightingScene extends CGFscene
 		this.lights[3].setQuadraticAttenuation(0.2);
 		this.lights[3].enable();
 
-		this.lights[4].setAmbient(1, 1, 1, 1);
+		this.lights[4].setAmbient(0, 0, 0, 1);
 		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[4].setSpecular(1.0, 1.0, 0, 1.0);
-		this.lights[4].setConstantAttenuation(0);
-		this.lights[4].setLinearAttenuation(0);
+		this.lights[4].setSpecular(1.0, 1.0, 1.00, 1.0);
+		this.lights[4].setConstantAttenuation(1);
+		this.lights[4].setLinearAttenuation(1);
 		this.lights[4].setQuadraticAttenuation(0.2);
 		this.lights[4].enable();
+		
+		this.lights[5].setAmbient(0, 0, 0, 1);
+		this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[5].setSpecular(1.0, 1.0, 0, 1.0);
+		this.lights[5].enable();
 
 	};
 
@@ -214,12 +245,22 @@ class LightingScene extends CGFscene
 		// Terrain
 
 		this.pushMatrix();
-		this.translate(0, -1.05, 0);
+		this.translate(0, 0, 0);
 		this.scale(50, 1, 50);
 		this.rotate(-Math.PI / 2 , 1, 0 ,0);
 		this.floorAppearence.apply();
         this.terrain.display();
         this.popMatrix();
+
+        // Lake
+		this.pushMatrix();
+		this.translate(-10, -0.5, -15);
+		this.scale(25, 1, 15);
+		this.rotate(-Math.PI / 2 , 1, 0 ,0);
+		this.water.apply();
+        this.lake.display();
+        this.popMatrix();
+       
 
 		// ---- END Scene drawing section
 	};
