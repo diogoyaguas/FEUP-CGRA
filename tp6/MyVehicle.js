@@ -6,6 +6,7 @@
 
 var SPEED_INC = 0.250;
 var ANGLE_INC = 0.1;
+var DEGREE_INC = 5;
 
 var degToRad = Math.PI / 180.0;
 
@@ -28,7 +29,7 @@ class MyVehicle extends CGFobject
     display() {
 
         this.scene.pushMatrix();
-        this.scene.rotate(this.rotate_body, 0, 1, 0);
+        this.scene.rotate(this.degree, 0, 1, 0);
         this.scene.translate(this.x, 1, this.z);
         this.scene.rotate(-45*degToRad,0,1,0);
         this.structure.display();
@@ -50,7 +51,7 @@ class MyVehicle extends CGFobject
 	this.structure.front_wheel.setAngle(this.angle_wheel);
 	this.structure.back_wheel.setAngle(this.angle_wheel);
 	this.structure.front_wheel.setRotate(this.rotate_wheel);
-	this.rotate_body += this.velocity * this.rotate_wheel;
+	this.rotate_body += this.velocity * this.degree;
    
     }
 	
@@ -76,6 +77,8 @@ class MyVehicle extends CGFobject
 
 			this.rotate_wheel += ANGLE_INC;
 		}
+
+		this.degree += DEGREE_INC*degToRad;
 	}
 
 	moveRight(){
@@ -83,6 +86,9 @@ class MyVehicle extends CGFobject
 		if(this.rotate_wheel > - Math.PI / 5.5) {
 
 			this.rotate_wheel -= ANGLE_INC;
+
 		}
+
+		this.degree -= DEGREE_INC*degToRad;
 	}
 };
