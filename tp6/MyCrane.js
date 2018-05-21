@@ -4,6 +4,7 @@ class MyCrane extends CGFobject
     {
         super(scene);
         this.structure = new MyCraneStructure(this.scene);
+        this.angle = 0;
 
     };
 
@@ -13,5 +14,16 @@ class MyCrane extends CGFobject
         this.scene.pushMatrix();
 	  	 	this.structure.display();
 	    this.scene.popMatrix();
+    };
+
+    verticalMove()
+    {  
+       this.angle += Math.PI / 100;
+    };
+
+    update(currTime) 
+    {
+        this.verticalMove();
+        this.structure.setAngle(this.angle);
     };
 };

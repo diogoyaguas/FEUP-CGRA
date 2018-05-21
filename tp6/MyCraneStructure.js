@@ -9,6 +9,8 @@ class MyCraneStructure extends CGFobject
         this.prism = new MyPrism(this.scene, 4, 1);
         this.plane = new Plane(this.scene, 5, 0, 10, 0, 10);
 
+        this.angle = 0;
+
         this.metalAppearence = new CGFappearance(this.scene);
 		this.metalAppearence.loadTexture("resources/images/metal.jpg");
 		this.metalAppearence.setAmbient(0.3,0.3,0.3,1);
@@ -20,12 +22,13 @@ class MyCraneStructure extends CGFobject
     display()
     {
         this.scene.pushMatrix()
-        this.metalAppearence.apply();
+        this.metalAppearence.apply();       
 
         // Base
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.translate(0, 0.5, 0);
+        this.scene.scale(1.5,1.5,1);
 	  	 	this.cylinder.display();
 	    this.scene.popMatrix();
     
@@ -33,8 +36,13 @@ class MyCraneStructure extends CGFobject
 	    this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.translate(0, 0.5, 1);
+        this.scene.scale(1.5,1.5,1);
 	       this.circle.display();
 	    this.scene.popMatrix();
+
+	    this.scene.translate(0, 0, -0.5);
+
+	    this.scene.rotate(this.angle, 0, 1, 0);
     
         // First Arm
 	    this.scene.pushMatrix();
@@ -120,5 +128,10 @@ class MyCraneStructure extends CGFobject
 
         this.scene.popMatrix();
 
+    }
+
+    setAngle(angle) {
+
+       this.angle = angle; 
     }
 }

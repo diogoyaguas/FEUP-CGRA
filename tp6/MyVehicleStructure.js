@@ -270,10 +270,5 @@ class MyVehicleStructure extends CGFobject
         this.substitute_wheel.display();
         this.scene.popMatrix();
 
-        
-
-
-
-       
     }
 };

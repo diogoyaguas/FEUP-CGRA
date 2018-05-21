@@ -40,19 +40,20 @@ class LightingScene extends CGFscene {
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         ];
 
+        // Scene elements
+        this.car = new MyVehicle(this);
+        this.terrain = new MyTerrain(this, 8, this.altimetry);
+        this.lake = new MyLake(this, 100);
+        this.crane = new MyCrane(this);
+
+        // GUI elements
         this.axis = new CGFaxis(this);
         this.Light1 = true;
         this.Light2 = true;
         this.Light3 = true;
         this.Light4 = true;
         this.show_axis = false;
-        this.Speed = 3;
-
-        // Scene elements
-        this.car = new MyVehicle(this);
-        this.terrain = new MyTerrain(this, 8, this.altimetry);
-        this.lake = new MyLake(this, 100);
-        this.crane = new MyCrane(this);
+        this.Speed = this.car.velocity;
 
         // Materials
         this.materialDefault = new CGFappearance(this);
@@ -262,7 +263,9 @@ class LightingScene extends CGFscene {
     };
 
     update(currTime) {
+        
         this.car.update(currTime);
+        this.crane.update(currTime);
 
         let time = (currTime - this.lastUpdate);
 

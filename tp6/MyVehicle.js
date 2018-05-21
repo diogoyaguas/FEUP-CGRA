@@ -23,7 +23,6 @@ class MyVehicle extends CGFobject {
         this.scene.pushMatrix();
         this.scene.rotate(this.degree, 0, 1, 0);
         this.scene.translate(this.x, 1, this.z);
-        this.scene.rotate(-45 * degToRad, 0, 1, 0);
         this.structure.display();
         this.scene.popMatrix();
 
@@ -33,6 +32,8 @@ class MyVehicle extends CGFobject {
 
         this.x += this.velocity * UPDATE_TIME * Math.sin(this.degree);
         this.z += this.velocity * UPDATE_TIME * Math.sin(this.degree);
+
+        this.velocity = this.scene.Speed;
 
         this.angle_wheel += this.velocity * 2;
 
@@ -53,6 +54,7 @@ class MyVehicle extends CGFobject {
         if (this.velocity <= 15) {
 
             this.velocity += SPEED_INC;
+            this.scene.scene += SPEED_INC;
         }
     }
 
@@ -61,6 +63,7 @@ class MyVehicle extends CGFobject {
         if (this.velocity >= -15) {
 
             this.velocity -= SPEED_INC;
+            this.scene.Speed -= SPEED_INC;
         }
     }
 
