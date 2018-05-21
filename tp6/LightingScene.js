@@ -6,7 +6,7 @@ var BOARD_HEIGHT = 4.0;
 var BOARD_A_DIVISIONS = 32;
 var BOARD_B_DIVISIONS = 100;
 
-var UPDATE_TIME = 0.05;
+var UPDATE_TIME = 1000;
 
 class LightingScene extends CGFscene {
     constructor() {
@@ -53,7 +53,7 @@ class LightingScene extends CGFscene {
         this.Light3 = true;
         this.Light4 = true;
         this.show_axis = false;
-        this.Speed = this.car.velocity;
+        this.Speed = this.car.speed;
 
         // Materials
         this.materialDefault = new CGFappearance(this);
@@ -64,7 +64,7 @@ class LightingScene extends CGFscene {
         this.floorAppearence.setSpecular(0, 0.2, 0.8, 1);
         this.floorAppearence.setShininess(120);
 
-        this.setUpdatePeriod(UPDATE_TIME * 1000);
+        this.setUpdatePeriod(UPDATE_TIME / 60);
 
 
 
@@ -264,7 +264,7 @@ class LightingScene extends CGFscene {
 
     update(currTime) {
         
-        this.car.update(currTime);
+        this.car.update();
         this.crane.update(currTime);
 
         let time = (currTime - this.lastUpdate);

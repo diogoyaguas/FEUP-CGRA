@@ -20,8 +20,8 @@ class MyWheel extends CGFobject
 		this.rim.setSpecular(0,0.2,0.8,1);
 		this.rim.setShininess(120);
 
-		this.angle_wheel = 0;
-		this.rotate_wheel = 0;
+		this.turnAngleWheel = 0;
+		this.RotationAngleWheel = 0;
 
 	};
 
@@ -29,8 +29,9 @@ class MyWheel extends CGFobject
         
         this.scene.pushMatrix();
         this.scene.translate(0, 0.2 , 0);
-        this.scene.rotate(this.rotate_wheel, 0, 1, 0);
-        this.scene.rotate(this.angle_wheel, 0, 0, 1);
+        this.scene.rotate(this.turnAngleWheel, 0, 1, 0);
+        this.scene.rotate(this.RotationAngleWheel, 0, 0, 1);
+        
 
 	    this.scene.pushMatrix();
 	    this.scene.translate(0, 0, 0.40);
@@ -57,13 +58,13 @@ class MyWheel extends CGFobject
 	};
 
 
-    setAngle(angle) {
+    setTurnAngle(angle) {
 
-       this.angle_wheel = angle; 
+       this.turnAngleWheel = angle; 
     }
 
-    setRotate(rotate) {
+    setRotationAngle(rotate) {
 
-    	this.rotate_wheel = rotate;
+    	this.RotationAngleWheel = rotate;
     }
 }

@@ -1,90 +1,90 @@
-var SPEED_INC = 0.250;
-var ANGLE_INC = 0.1;
-var DEGREE_INC = 5;
-
-var degToRad = Math.PI / 180.0;
+var SPEED_INC = 0.005;
+var ANGLE_INC = Math.PI / 50;
+var BACK = Math.PI / 100;
 
 class MyVehicle extends CGFobject {
     constructor(scene) {
+
         super(scene);
-        this.x = 0;
-        this.z = 0;
-        this.velocity = 0;
-        this.degree = -45 * degToRad;
-        this.structure = new MyVehicleStructure(this.scene, this.angle_wheel);
-        this.angle_wheel = 0;
-        this.rotate_wheel = 0;
-        this.rotate_body = 0;
+        this.structure = new MyVehicleStructure(this.scene);
+
+    	this.x = 0;
+    	this.z = 0; 
+
+    	this.speed = 0;
+
+    	this.rotationAngle = 0;
+    	this.turnAngle = 0;
+    	this.orientation = 0;
 
     };
 
     display() {
 
         this.scene.pushMatrix();
-        this.scene.rotate(this.degree, 0, 1, 0);
-        this.scene.translate(this.x, 1, this.z);
+        this.scene.translate(this.x, 1, -this.z);
+        this.scene.rotate(this.orientation, 0, 1, 0);
+        this.scene.translate(2.5, 0, 0);
         this.structure.display();
         this.scene.popMatrix();
 
     }
 
-    update(currTime) {
+    update() {
 
-        this.x += this.velocity * UPDATE_TIME * Math.sin(this.degree);
-        this.z += this.velocity * UPDATE_TIME * Math.sin(this.degree);
+    	this.orientation += this.turnAngle * this.speed * 0.3;
 
-        this.velocity = this.scene.Speed;
+    	this.x += this.speed * Math.cos(this.orientation);
+    	this.z += this.speed * Math.sin(this.orientation);
 
-        this.angle_wheel += this.velocity * 2;
+    	this.rotationAngle += 2 * this.speed;
+    	this.structure.front_wheel.setRotationAngle(this.rotationAngle);
+    	this.structure.back_wheel.setRotationAngle(this.rotationAngle);
 
-        if (this.rotate_wheel > 0.01) {
-            this.rotate_wheel -= 0.03;
-        } else if (this.rotate_wheel < -0.01) {
-            this.rotate_wheel += 0.03;
+    	this.structure.front_wheel.setTurnAngle(this.turnAngle);
+
+    	if (this.turnAngle > 0) {
+            this.turnAngle -= BACK;
+        } else if (this.turnAngle < -0) {
+            this.turnAngle += BACK;
         }
-        this.structure.front_wheel.setAngle(this.angle_wheel);
-        this.structure.back_wheel.setAngle(this.angle_wheel);
-        this.structure.front_wheel.setRotate(this.rotate_wheel);
-        this.rotate_body += this.velocity * this.degree;
 
-    }
+    	
+        
+    };
 
     moveForward() {
 
-        if (this.velocity <= 15) {
-
-            this.velocity += SPEED_INC;
-            this.scene.scene += SPEED_INC;
+        if (this.speed <= 0.25) {
+			this.speed += SPEED_INC;
+             
         }
-    }
+    };
 
     moveBackward() {
 
-        if (this.velocity >= -15) {
-
-            this.velocity -= SPEED_INC;
-            this.scene.Speed -= SPEED_INC;
+        if (this.speed >= -0.25) {
+    		this.speed -= SPEED_INC;
         }
-    }
+    };
 
     moveLeft() {
 
-        if (this.rotate_wheel < Math.PI / 5.5) {
+        if (this.turnAngle < Math.PI / 5) {
 
-            this.rotate_wheel += ANGLE_INC;
+            this.turnAngle += ANGLE_INC;
         }
 
-        this.degree += DEGREE_INC * degToRad;
-    }
+    };
 
     moveRight() {
 
-        if (this.rotate_wheel > -Math.PI / 5.5) {
+        if (this.turnAngle > - Math.PI / 5) {
 
-            this.rotate_wheel -= ANGLE_INC;
+            this.turnAngle -= ANGLE_INC;
 
         }
 
-        this.degree -= DEGREE_INC * degToRad;
-    }
+    };
+
 };
