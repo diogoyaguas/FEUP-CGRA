@@ -8,276 +8,273 @@ var BOARD_B_DIVISIONS = 100;
 
 var UPDATE_TIME = 0.05;
 
-class LightingScene extends CGFscene 
-{
-	constructor()
-	{
-		super();
-	};
+class LightingScene extends CGFscene {
+    constructor() {
+        super();
+    };
 
-	init(application) 
-	{
-		super.init(application);
+    init(application) {
+        super.init(application);
 
-		this.initCameras();
+        this.initCameras();
 
-		this.initLights();
+        this.initLights();
 
-		this.enableTextures(true);
+        this.enableTextures(true);
 
-		this.gl.clearColor(0.529, 0.808, 0.922, 1.0);
-		this.gl.clearDepth(100.0);
-		this.gl.enable(this.gl.DEPTH_TEST);
-		this.gl.enable(this.gl.CULL_FACE);
-		this.gl.depthFunc(this.gl.LEQUAL);
+        this.gl.clearColor(0.529, 0.808, 0.922, 1.0);
+        this.gl.clearDepth(100.0);
+        this.gl.enable(this.gl.DEPTH_TEST);
+        this.gl.enable(this.gl.CULL_FACE);
+        this.gl.depthFunc(this.gl.LEQUAL);
 
-		this.altimetry= [[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , .0, 0.0, -3.0, -2.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, -4.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 1.4, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 2.5, 3.3, 5.0, 0.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 4.7, 4.5, 4.0, 0.0 ],
-[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
-];
+        this.altimetry = [
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, -4.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, -3.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 1.4, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 2.5, 3.3, 5.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 4.7, 4.5, 4.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        ];
 
-		this.axis = new CGFaxis(this);
-		this.Light1 = true; 
-		this.Light2 = true; 
-		this.Light3 = true;
-		this.Light4 = true;
-		this.show_axis = false;
-		this.Speed = 3;
+        this.axis = new CGFaxis(this);
+        this.Light1 = true;
+        this.Light2 = true;
+        this.Light3 = true;
+        this.Light4 = true;
+        this.show_axis = false;
+        this.Speed = 3;
 
-		// Scene elements
-		this.car = new MyVehicle(this);
-		this.terrain = new MyTerrain(this, 8, this.altimetry);
-		this.lake = new Plane(this, 4, 0, 150, 0, 150);
+        // Scene elements
+        this.car = new MyVehicle(this);
+        this.terrain = new MyTerrain(this, 8, this.altimetry);
+        this.lake = new MyLake(this, 100);
+        this.crane = new MyCrane(this);
 
-		// Materials
-		this.materialDefault = new CGFappearance(this);
-		this.floorAppearence = new CGFappearance(this);
-		this.floorAppearence.loadTexture("resources/images/grass.png");
-		this.floorAppearence.setAmbient(0.3,0.3,0.3,1);
-		this.floorAppearence.setDiffuse(0.6,0.6,0.6,1);
-		this.floorAppearence.setSpecular(0,0.2,0.8,1);
-		this.floorAppearence.setShininess(120);
+        // Materials
+        this.materialDefault = new CGFappearance(this);
+        this.floorAppearence = new CGFappearance(this);
+        this.floorAppearence.loadTexture("resources/images/grass.png");
+        this.floorAppearence.setAmbient(0.3, 0.3, 0.3, 1);
+        this.floorAppearence.setDiffuse(0.6, 0.6, 0.6, 1);
+        this.floorAppearence.setSpecular(0, 0.2, 0.8, 1);
+        this.floorAppearence.setShininess(120);
 
-		this.materialDefault = new CGFappearance(this);
-		this.water = new CGFappearance(this);
-		this.water.loadTexture("resources/images/water.jpg");
-		this.water.setAmbient(0.3,0.3,0.3,1);
-		this.water.setDiffuse(0.6,0.6,0.6,1);
-		this.water.setSpecular(0,0.2,0.8,1);
-		this.water.setShininess(120);
-
-		this.setUpdatePeriod(UPDATE_TIME*1000);
+        this.setUpdatePeriod(UPDATE_TIME * 1000);
 
 
 
-	};
+    };
 
-	initCameras() 
-	{
-		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
-	};
+    initCameras() {
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+    };
 
-	initLights() 
-	{
-		this.setGlobalAmbientLight(0, 0, 0, 1.0);
-		
-		// Positions for four lights
-		this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
-		this.lights[0].setVisible(false); // show marker on light position (different from enabled)
-		
-		this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
-		this.lights[1].setVisible(false); // show marker on light position (different from enabled)
+    initLights() {
+        this.setGlobalAmbientLight(0, 0, 0, 1.0);
 
-		this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-		this.lights[2].setVisible(false);
+        // Positions for four lights
+        this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
+        this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[3].setPosition(4.0, 6.0, 5.0, 1.0);
-		this.lights[3].setVisible(false); // show marker on light position (different from enabled)
+        this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+        this.lights[1].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[4].setPosition(-10, 4.0, 10, 1.0);
-		this.lights[4].setVisible(false); // show marker on light position (different from enabled)
+        this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
+        this.lights[2].setVisible(false);
 
-		this.lights[5].setPosition(-8.0, 6.0, -8.0, 1.0);
-		this.lights[5].setVisible(false); // show marker on light position (different from enabled)
+        this.lights[3].setPosition(4.0, 6.0, 5.0, 1.0);
+        this.lights[3].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[0].setAmbient(0, 0, 0, 1);
-		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
-		this.lights[0].enable();
+        this.lights[4].setPosition(-10, 4.0, 10, 1.0);
+        this.lights[4].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[1].setAmbient(0, 0, 0, 1);
-		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].enable();
+        this.lights[5].setPosition(-8.0, 6.0, -8.0, 1.0);
+        this.lights[5].setVisible(false); // show marker on light position (different from enabled)
 
-		this.lights[2].setSpecular(1, 1, 1, 1);
-		this.lights[2].setAmbient(0, 0, 0, 1);
-		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setConstantAttenuation(0);
-		this.lights[2].setLinearAttenuation(1);
-		this.lights[2].setQuadraticAttenuation(0);
-		this.lights[2].enable();
+        this.lights[0].setAmbient(0, 0, 0, 1);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[0].enable();
 
-		this.lights[3].setAmbient(0, 0, 0, 1);
-		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[3].setSpecular(1.0, 1.0, 0, 1.0);
-		this.lights[3].setConstantAttenuation(0);
-		this.lights[3].setLinearAttenuation(0);
-		this.lights[3].setQuadraticAttenuation(0.2);
-		this.lights[3].enable();
+        this.lights[1].setAmbient(0, 0, 0, 1);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
 
-		this.lights[4].setAmbient(0, 0, 0, 1);
-		this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[4].setSpecular(1.0, 1.0, 1.00, 1.0);
-		this.lights[4].setConstantAttenuation(1);
-		this.lights[4].setLinearAttenuation(1);
-		this.lights[4].setQuadraticAttenuation(0.2);
-		this.lights[4].enable();
-		
-		this.lights[5].setAmbient(0, 0, 0, 1);
-		this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[5].setSpecular(1.0, 1.0, 0, 1.0);
-		this.lights[5].enable();
+        this.lights[2].setSpecular(1, 1, 1, 1);
+        this.lights[2].setAmbient(0, 0, 0, 1);
+        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].setConstantAttenuation(0);
+        this.lights[2].setLinearAttenuation(1);
+        this.lights[2].setQuadraticAttenuation(0);
+        this.lights[2].enable();
 
-	};
+        this.lights[3].setAmbient(0, 0, 0, 1);
+        this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[3].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[3].setConstantAttenuation(0);
+        this.lights[3].setLinearAttenuation(0);
+        this.lights[3].setQuadraticAttenuation(0.2);
+        this.lights[3].enable();
 
-	updateLights() 
-	{
-		for (var i = 0; i < this.lights.length; i++)
-			this.lights[i].update();
+        this.lights[4].setAmbient(0, 0, 0, 1);
+        this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[4].setSpecular(1.0, 1.0, 1.00, 1.0);
+        this.lights[4].setConstantAttenuation(1);
+        this.lights[4].setLinearAttenuation(1);
+        this.lights[4].setQuadraticAttenuation(0.2);
+        this.lights[4].enable();
 
-		if (this.Light1)
-			this.lights[0].enable();
-		if (this.Light2)
-			this.lights[1].enable();
-		if (this.Light3)
-			this.lights[2].enable();
-		if (this.Light4)
-			this.lights[3].enable();
+        this.lights[5].setAmbient(0, 0, 0, 1);
+        this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[5].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[5].enable();
 
-		if (!this.Light1)
-			this.lights[0].disable();
-		if (!this.Light2)
-			this.lights[1].disable();
-		if (!this.Light3)
-			this.lights[2].disable();
-		if (!this.Light4)
-			this.lights[3].disable();
+    };
 
-	}
+    updateLights() {
+        for (var i = 0; i < this.lights.length; i++)
+            this.lights[i].update();
 
-	checkKeys(){
+        if (this.Light1)
+            this.lights[0].enable();
+        if (this.Light2)
+            this.lights[1].enable();
+        if (this.Light3)
+            this.lights[2].enable();
+        if (this.Light4)
+            this.lights[3].enable();
 
-	var text="Keys pressed: ";
-	var keysPressed=false;
+        if (!this.Light1)
+            this.lights[0].disable();
+        if (!this.Light2)
+            this.lights[1].disable();
+        if (!this.Light3)
+            this.lights[2].disable();
+        if (!this.Light4)
+            this.lights[3].disable();
 
-	if (this.gui.isKeyPressed("KeyW")){
-		text+=" W ";
-		keysPressed=true;
-		this.car.moveForward();
-	}
+    }
 
-	if (this.gui.isKeyPressed("KeyS")){
-		text+=" S ";
-		keysPressed=true;
-		this.car.moveBackward();
-	}
+    checkKeys() {
 
-	if(this.gui.isKeyPressed("KeyA")){
-		text+=" A ";
-		keysPressed = true;
-		this.car.moveLeft();
-	}
+        var text = "Keys pressed: ";
+        var keysPressed = false;
 
-	if(this.gui.isKeyPressed("KeyD")){
-		text+=" D ";
-		keysPressed = true;
-		this.car.moveRight();
-	}
+        if (this.gui.isKeyPressed("KeyW")) {
+            text += " W ";
+            keysPressed = true;
+            this.car.moveForward();
+        }
 
-	if (keysPressed)
-		console.log(text);
-	}
+        if (this.gui.isKeyPressed("KeyS")) {
+            text += " S ";
+            keysPressed = true;
+            this.car.moveBackward();
+        }
+
+        if (this.gui.isKeyPressed("KeyA")) {
+            text += " A ";
+            keysPressed = true;
+            this.car.moveLeft();
+        }
+
+        if (this.gui.isKeyPressed("KeyD")) {
+            text += " D ";
+            keysPressed = true;
+            this.car.moveRight();
+        }
+
+        if (keysPressed)
+            console.log(text);
+    }
 
 
-	display() 
-	{
-		// ---- BEGIN Background, camera and axis setup
+    display() {
+        // ---- BEGIN Background, camera and axis setup
 
-		// Clear image and depth buffer everytime we update the scene
-		this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+        // Clear image and depth buffer everytime we update the scene
+        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-		// Initialize Model-View matrix as identity (no transformation)
-		this.updateProjectionMatrix();
-		this.loadIdentity();
+        // Initialize Model-View matrix as identity (no transformation)
+        this.updateProjectionMatrix();
+        this.loadIdentity();
 
-		// Apply transformations corresponding to the camera position relative to the origin
-		this.applyViewMatrix();
+        // Apply transformations corresponding to the camera position relative to the origin
+        this.applyViewMatrix();
 
-		// Update all lights used
-		this.updateLights();
+        // Update all lights used
+        this.updateLights();
 
-		// Draw axis
-		if(this.show_axis)
-			this.axis.display();
+        // Draw axis
+        if (this.show_axis)
+            this.axis.display();
 
-		this.materialDefault.apply();
+        this.materialDefault.apply();
 
-		//Check keys
+        //Check keys
 
-		this.checkKeys();
+        this.checkKeys();
 
-		// ---- END Background, camera and axis setup
+        // ---- END Background, camera and axis setup
 
-		// ---- BEGIN Scene drawing section
+        // ---- BEGIN Scene drawing section
 
-		// Car
-		this.pushMatrix();
-		this.car.display();
-		this.popMatrix();
-
-		// Terrain
-
-		this.pushMatrix();
-		this.translate(0, 0, 0);
-		this.scale(50, 1, 50);
-		this.rotate(-Math.PI / 2 , 1, 0 ,0);
-		this.floorAppearence.apply();
-        this.terrain.display();
+        // Car
+        this.pushMatrix();
+        this.car.display();
         this.popMatrix();
 
         // Lake
-		this.pushMatrix();
-		this.translate(-10, -0.5, -15);
-		this.scale(25, 1, 15);
-		this.rotate(-Math.PI / 2 , 1, 0 ,0);
-		this.water.apply();
+        this.pushMatrix();
+        this.rotate(Math.PI / 2 - this.lake.getAngle(), 0, 1, 0);
+        this.translate(0, -0.05, 0);
+        this.scale(23, 1, 23);
+        this.rotate(-Math.PI / 2, 1, 0, 0);
         this.lake.display();
         this.popMatrix();
-       
 
-		// ---- END Scene drawing section
-	};
+        // Terrain
+        this.pushMatrix();
+        this.translate(0, 0, 0);
+        this.scale(50, 1, 50);
+        this.rotate(-Math.PI / 2, 1, 0, 0);
+        this.floorAppearence.apply();
+        this.terrain.display();
+        this.popMatrix();
 
-	Menu(){ 
-	console.log("Doing something..."); 
-	};
+        // Crane
+        this.pushMatrix();
+        this.translate(-15,0,12);
+        this.rotate(Math.PI / 2, 0, 1 , 0);
+        this.crane.display();
+        this.popMatrix();
 
-	update(currTime){
-		this.car.update(currTime);
-	};
+        // ---- END Scene drawing section
+    };
 
-	Axis(){
+    Menu() {
+        console.log("Doing something...");
+    };
 
-		this.show_axis = !this.show_axis;
-	}
+    update(currTime) {
+        this.car.update(currTime);
+
+        let time = (currTime - this.lastUpdate);
+
+        this.lake.setAngle(this.lake.getAngle() + time/100000);
+
+        this.lastUpdate = currTime;
+    };
+
+    Axis() {
+
+        this.show_axis = !this.show_axis;
+
+    }
 
 };
-
-

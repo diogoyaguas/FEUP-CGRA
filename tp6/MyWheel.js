@@ -1,9 +1,3 @@
-/**
- * MyWheel
- * @param gl {WebGLRenderingContext}
- * @constructor
- */
-
 class MyWheel extends CGFobject
 {
 	constructor(scene)

@@ -2,55 +2,66 @@
  * MyQuad
  * @constructor
  */
-class MyCylinder extends CGFobject
-{
-	constructor(scene, slices, stacks) 
-	{
-		super(scene);
-		this.slices = slices;
-		this.stacks = stacks;
+class MyCylinder extends CGFobject {
 
-		this.initBuffers();
-	};
+    constructor(scene, slices, stacks) {
+        super(scene);
+        this.slices = slices;
+        this.stacks = stacks;
 
-	initBuffers() 
-	{	
-		this.vertices = [];
-		this.indices = [];
-		this.normals = [];
+        this.initBuffers();
+    };
 
-		let ang = 0;
-		let angDelta = Math.PI * 2 / this.slices;
-		
-		let z = 0;
-		let zDelta = 1.0/this.stacks;
+    initBuffers() {
 
-		for (let j = 0; j < this.stacks; j++){
+        var teta = 2 * Math.PI / this.slices;
+        this.vertices = [
 
-			for (let i = 0; i < this.slices; i++){
-				this.vertices.push(Math.cos(ang), Math.sin(ang), z + zDelta);
-				this.vertices.push(Math.cos(ang), Math.sin(ang), z);
-				for (let j = 0; j < 2; j++){
-					this.normals.push(Math.cos(ang), Math.sin(ang), 0);
-				}
-				ang += angDelta;
-			}
+        ];
+        this.normals = [];
+        var teta = 2 * Math.PI / this.slices;
+        for (var j = 0; j <= this.stacks; j++) {
+            for (var i = 0; i < this.slices; i++) {
+                this.vertices.push(Math.cos(i * teta));
+                this.vertices.push(Math.sin(i * teta));
+                this.vertices.push(j * 1.0 / this.stacks);
+                this.normals.push(Math.cos(i * teta));
+                this.normals.push(Math.sin(i * teta));
+                this.normals.push(0);
+            }
+        }
 
-			z += zDelta;
-			let aux = 2 * j * this.slices;
 
-			for (let i = aux; i < aux + 2 * this.slices - 2 ; i += 2){
-				this.indices.push(i, i+1, i+2);
-				this.indices.push(i+2, i+1, i+3);
-			}
+        this.indices = [];
 
-			this.indices.push(aux + 2 * this.slices - 1, aux + 1,aux);
-			this.indices.push(aux + 2 * this.slices - 2, aux + 2 * this.slices - 1, aux);
-	}
+        for (var j = 0; j < this.stacks; j++) {
+            for (var i = 0; i < this.slices; i++) {
+                this.indices.push((j + 1) * this.slices + (i + 1) % this.slices);
+                this.indices.push(j * this.slices + i); //+0.5
+                this.indices.push(j * this.slices + (i + 1) % this.slices);
+                this.indices.push((j + 1) * this.slices + i); //+0.5
+                this.indices.push(j * this.slices + i); //+0.5
+                this.indices.push((j + 1) * this.slices + (i + 1) % this.slices);
+            }
+        }
 
-	
-		this.primitiveType = this.scene.gl.TRIANGLES;
+        this.texCoords = [];
 
-		this.initGLBuffers();
-	};
-};
+        var s = 0;
+        var t = 0;
+        var s_inc = 1 / this.slices;
+        var t_inc = 1 / this.stacks;
+        for (var i = 0; i <= this.stacks; i++) {
+            for (var j = 0; j < this.slices; j++) {
+                this.texCoords.push(s, t);
+                s += s_inc;
+            }
+            s = 0;
+            t += t_inc;
+        }
+
+
+        this.primitiveType = this.scene.gl.TRIANGLES;
+        this.initGLBuffers();
+    };
+}

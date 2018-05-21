@@ -23,6 +23,9 @@ serialInclude([
 	'MySemiSphere.js',
 	'MyTrapezius.js',
 	'MyInvertedSemiSphere.js',
+	'MyLake.js',
+	'MyCrane.js',
+	'MyCraneStructure.js',
 
 
 	main=function() {

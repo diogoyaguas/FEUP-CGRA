@@ -1,9 +1,3 @@
-/**
- * MyVehicleStructure
- * @param gl {WebGLRenderingContext}
- * @constructor
- */
-
 class MyVehicleStructure extends CGFobject
 {
 	constructor(scene)
@@ -13,7 +7,7 @@ class MyVehicleStructure extends CGFobject
         this.front_wheel = new MyWheel(this.scene);
         this.back_wheel = new MyWheel(this.scene);
         this.substitute_wheel = new MyWheel(this.scene);
-        this.sphere = new MySemiSphere(this.scene, 5, 5);
+        this.sphere = new MySemiSphere(this.scene, 30, 5);
         this.trapezius = new MyTrapezius(this.scene,0.8,1.2,0.3);
 		//this.cylinder = new MyCylinder(this,scene, 5, 5);
 		
@@ -138,8 +132,8 @@ class MyVehicleStructure extends CGFobject
 
         //body up right back
         this.scene.pushMatrix();
-        this.scene.translate(4.3, 1.7, 1.1);
-        this.scene.scale(1.4, 1.1, 0.3);
+        this.scene.translate(4.3, 1.7, 1.125);
+        this.scene.scale(1.4, 1.1, 0.25);
         this.quad.display();
         this.scene.popMatrix();
 
@@ -159,8 +153,8 @@ class MyVehicleStructure extends CGFobject
 
         //body up left back
         this.scene.pushMatrix();
-        this.scene.translate(4.3, 1.7, -1.1);
-        this.scene.scale(1.4, 1.1, 0.3);
+        this.scene.translate(4.3, 1.7, -1.12);
+        this.scene.scale(1.4, 1.1, 0.25);
         this.quad.display();
         this.scene.popMatrix();
 
@@ -273,7 +267,7 @@ class MyVehicleStructure extends CGFobject
         this.scene.pushMatrix();
         this.scene.translate(5, 0.45, -0.08);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        this.back_wheel.display();
+        this.substitute_wheel.display();
         this.scene.popMatrix();
 
         
