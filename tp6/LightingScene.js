@@ -31,13 +31,13 @@ class LightingScene extends CGFscene {
         this.altimetry = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, -4.0, 0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, 0.0, -3.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 0.0, -0.5, 0.0, 0.0],
             [0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, 5.0, 3.7, 0.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, 4.0, 8, 3.3, .0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 7.0, 7.0, 7.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, 7.0, 7.0, 7.0, 0.0]
+            [0.0, 0.0, 0.0, 7.0, 6.8, 6.5, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 7.0, 6.6, 7.0, 0.0]
         ];
 
         this.plane = [[]];
@@ -130,6 +130,9 @@ class LightingScene extends CGFscene {
         this.lights[5].setPosition(-8.0, 6.0, -8.0, 1.0);
         this.lights[5].setVisible(false); // show marker on light position (different from enabled)
 
+        this.lights[6].setPosition(12, 12, 15, 1.0);
+        this.lights[6].setVisible(false); // show marker on light position (different from enabled)
+
         this.lights[0].setAmbient(0, 0, 0, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
@@ -167,6 +170,11 @@ class LightingScene extends CGFscene {
         this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[5].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[5].enable();
+
+        this.lights[6].setAmbient(0, 0, 0, 1);
+        this.lights[6].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[6].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[6].enable();
 
     };
 

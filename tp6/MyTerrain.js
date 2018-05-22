@@ -2,7 +2,7 @@ class MyTerrain extends Plane
 {
 	constructor(scene, nrDivs, altimetry)
 	{
-        super(scene, nrDivs, 0, 150, 0, 150);
+        super(scene, nrDivs, 0, 100, 0, 100);
 
 		this.altimetry = altimetry;
 		this.applyAltimetry();
