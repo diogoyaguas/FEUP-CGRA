@@ -73,6 +73,8 @@ class MyInterface extends CGFinterface {
 
 	 this.gui.add(this.scene, 'Speed', -15, 15);
 
+	 this.gui.add(this.scene, 'Textures', [ 'Original', 'Retro', 'Pink' ] );
+
 	 this.initKeys();
 
 	 return true;

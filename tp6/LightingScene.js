@@ -55,6 +55,7 @@ class LightingScene extends CGFscene {
         this.show_axis = false;
         this.Speed = this.car.speed;
 
+        
         // Materials
         this.materialDefault = new CGFappearance(this);
         this.floorAppearence = new CGFappearance(this);
@@ -64,9 +65,34 @@ class LightingScene extends CGFscene {
         this.floorAppearence.setSpecular(0, 0.2, 0.8, 1);
         this.floorAppearence.setShininess(120);
 
+        this.Original = new CGFappearance(this);
+        this.Original.loadTexture("resources/images/black.png");
+        this.Original.setAmbient(0.8, 0.8, 0.8, 1);
+        this.Original.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.Original.setSpecular(1, 1, 1, 1);
+
+        this.Retro = new CGFappearance(this);
+        this.Retro.loadTexture("resources/images/retro.jpg");
+        this.Retro.setAmbient(0.8, 0.8, 0.8, 1);
+        this.Retro.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.Retro.setSpecular(1, 1, 1, 1);
+
+        this.Pink = new CGFappearance(this);
+        this.Pink.loadTexture("resources/images/pink.jpg");
+        this.Pink.setAmbient(0.8, 0.8, 0.8, 1);
+        this.Pink.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.Pink.setSpecular(1, 1, 1, 1);
+
+        this.vehicleAppearances = [this.Original, this.Retro, this.Pink];
+        this.vehicleAppearanceList = {
+            'Original': 0,
+            'Retro': 1,
+            'Pink': 2
+        }
+        this.Textures = 'Original';
+        this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
+
         this.setUpdatePeriod(UPDATE_TIME / 60);
-
-
 
     };
 
@@ -227,6 +253,7 @@ class LightingScene extends CGFscene {
 
         // Car
         this.pushMatrix();
+        this.vehicleAppearances[this.currVehicleAppearance].apply();
         this.car.display();
         this.popMatrix();
 
@@ -250,8 +277,8 @@ class LightingScene extends CGFscene {
 
         // Crane
         this.pushMatrix();
-        this.translate(-15,0,12);
-        this.rotate(Math.PI / 2, 0, 1 , 0);
+        this.translate(-15, 0, 12);
+        this.rotate(Math.PI / 2, 0, 1, 0);
         this.crane.display();
         this.popMatrix();
 
@@ -263,13 +290,15 @@ class LightingScene extends CGFscene {
     };
 
     update(currTime) {
-        
+
         this.car.update();
+        this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
+
         this.crane.update(currTime);
 
         let time = (currTime - this.lastUpdate);
 
-        this.lake.setAngle(this.lake.getAngle() + time/100000);
+        this.lake.setAngle(this.lake.getAngle() + time / 100000);        
 
         this.lastUpdate = currTime;
     };
