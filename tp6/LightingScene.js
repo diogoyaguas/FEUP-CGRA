@@ -1,14 +1,8 @@
-var degToRad = Math.PI / 180.0;
-
-var BOARD_WIDTH = 6.0;
-var BOARD_HEIGHT = 4.0;
-
-var BOARD_A_DIVISIONS = 32;
-var BOARD_B_DIVISIONS = 100;
-
-var UPDATE_TIME = 1000;
+let UPDATE_TIME = 1000;
+let degToRad = Math.PI / 180;
 
 class LightingScene extends CGFscene {
+
     constructor() {
         super();
     };
@@ -106,7 +100,7 @@ class LightingScene extends CGFscene {
     };
 
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     };
 
     initLights() {
