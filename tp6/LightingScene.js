@@ -33,16 +33,19 @@ class LightingScene extends CGFscene {
             [0.0, 0.0, .0, 0.0, 0.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, 0.0, 0.0, -4.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, 0.0, 0.0, 0.0, -3.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-            [0.0, 0.0, 1.4, 0.0, 0.0, 0.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 2.5, 3.3, 5.0, 0.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, 4.7, 4.5, 4.0, 0.0],
-            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+            [0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 5.0, 3.7, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 0.0, 4.0, 8, 3.3, .0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 7.0, 7.0, 7.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0, 0.0, 7.0, 7.0, 7.0, 0.0]
         ];
+
+        this.plane = [[]];
 
         // Scene elements
         this.car = new MyVehicle(this);
         this.terrain = new MyTerrain(this, 8, this.altimetry);
+        this.plane = new MyTerrain(this, 8, this.plane);
         this.lake = new MyLake(this, 100);
         this.crane = new MyCrane(this);
 
@@ -58,12 +61,18 @@ class LightingScene extends CGFscene {
         
         // Materials
         this.materialDefault = new CGFappearance(this);
+
         this.floorAppearence = new CGFappearance(this);
         this.floorAppearence.loadTexture("resources/images/grass.png");
-        this.floorAppearence.setAmbient(0.3, 0.3, 0.3, 1);
-        this.floorAppearence.setDiffuse(0.6, 0.6, 0.6, 1);
-        this.floorAppearence.setSpecular(0, 0.2, 0.8, 1);
-        this.floorAppearence.setShininess(120);
+        this.floorAppearence.setAmbient(0.8, 0.8, 0.8, 1);
+        this.floorAppearence.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.floorAppearence.setSpecular(1, 1, 1, 1);
+
+        this.wallAppearence = new CGFappearance(this);
+        this.wallAppearence.loadTexture("resources/images/dirt.jpg");
+        this.wallAppearence.setAmbient(0.8, 0.8, 0.8, 1);
+        this.wallAppearence.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.wallAppearence.setSpecular(1, 1, 1, 1);
 
         this.Original = new CGFappearance(this);
         this.Original.loadTexture("resources/images/black.png");
@@ -103,7 +112,6 @@ class LightingScene extends CGFscene {
     initLights() {
         this.setGlobalAmbientLight(0, 0, 0, 1.0);
 
-        // Positions for four lights
         this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
         this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 
@@ -260,10 +268,56 @@ class LightingScene extends CGFscene {
         // Lake
         this.pushMatrix();
         this.rotate(Math.PI / 2 - this.lake.getAngle(), 0, 1, 0);
-        this.translate(0, -0.05, 0);
+        this.translate(0, -0.1, 0);
         this.scale(23, 1, 23);
         this.rotate(-Math.PI / 2, 1, 0, 0);
         this.lake.display();
+        this.popMatrix();
+
+        // Walls
+        this.pushMatrix();
+        this.translate(0, 5, 0);
+        this.scale(50, 50, 1);
+        this.translate(0, -0.6, 25);
+        this.wallAppearence.apply();
+        this.plane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.rotate(Math.PI / 2 , 0, 1, 0);
+        this.translate(0, 5, 0);
+        this.scale(50, 50, 1);
+        this.translate(0, -0.6, 25);
+        this.wallAppearence.apply();
+        this.plane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.rotate(Math.PI , 0, 1, 0);
+        this.translate(0, 5, 0);
+        this.scale(50, 50, 1);
+        this.translate(0, -0.6, 25);
+        this.wallAppearence.apply();
+        this.plane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.rotate(- Math.PI / 2 , 0, 1, 0);
+        this.translate(0, 5, 0);
+        this.scale(50, 50, 1);
+        this.translate(0, -0.6, 25);
+        this.wallAppearence.apply();
+        this.plane.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.rotate(- Math.PI / 2 , 0, 1, 0);
+        this.rotate(Math.PI / 2 , 1, 0, 0);
+        this.translate(0, 5, 0);
+        this.scale(50, 50, 1);
+        this.translate(0, -0.1, 50);
+        this.wallAppearence.apply();
+        this.plane.display();
         this.popMatrix();
 
         // Terrain
