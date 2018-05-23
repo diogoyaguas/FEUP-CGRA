@@ -228,6 +228,16 @@ class LightingScene extends CGFscene {
             this.car.moveRight();
         }
 
+        if (this.gui.isKeyPressed("KeyC")) {
+            text += " C ";
+            
+            if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
+            this.crane.update();
+            }
+        }
+        
+
+
         if (keysPressed)
             console.log(text);
     }
@@ -356,8 +366,6 @@ class LightingScene extends CGFscene {
 
         this.car.update();
         this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
-
-       // this.crane.update(currTime);
 
         let time = (currTime - this.lastUpdate);
 

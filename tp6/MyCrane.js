@@ -21,7 +21,7 @@ class MyCrane extends CGFobject
        this.angle += Math.PI / 100;
     };
 
-    update(currTime) 
+    update() 
     {
         this.verticalMove();
         this.structure.setAngle(this.angle);
