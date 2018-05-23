@@ -21,6 +21,7 @@ class LightingScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
+        this.lastSpeed=0;
 
         this.altimetry = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -205,12 +206,14 @@ class LightingScene extends CGFscene {
             text += " W ";
             keysPressed = true;
             this.car.moveForward();
+            this.Speed=this.car.speed*100;
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
             text += " S ";
             keysPressed = true;
             this.car.moveBackward();
+            this.Speed=this.car.speed*100;
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
@@ -346,17 +349,23 @@ class LightingScene extends CGFscene {
     };
 
     update(currTime) {
+        if(this.Speed!=this.lastSpeed){
+        this.car.speed= this.Speed/100;
+        this.lastSpeed=this.Speed;
+        }
 
         this.car.update();
         this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
 
-        this.crane.update(currTime);
+       // this.crane.update(currTime);
 
         let time = (currTime - this.lastUpdate);
 
         this.lake.setAngle(this.lake.getAngle() + time / 100000);        
 
         this.lastUpdate = currTime;
+
+
     };
 
     Axis() {
