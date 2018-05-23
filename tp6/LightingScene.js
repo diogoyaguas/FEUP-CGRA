@@ -101,7 +101,7 @@ class LightingScene extends CGFscene {
     };
 
     initCameras() {
-        this.camera = new CGFcamera(1, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.5, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     };
 
     initLights() {
