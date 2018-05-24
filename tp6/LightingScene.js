@@ -231,9 +231,9 @@ class LightingScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyC")) {
             text += " C ";
             
-            if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
+            //if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
             this.crane.update();
-            }
+            //}
         }
         
 
@@ -347,7 +347,7 @@ class LightingScene extends CGFscene {
         // Crane
         this.pushMatrix();
         this.translate(-15, 0, 12);
-        this.rotate(Math.PI / 2, 0, 1, 0);
+        this.rotate(-Math.PI / 2, 0, 1, 0);
         this.crane.display();
         this.popMatrix();
 
@@ -359,6 +359,7 @@ class LightingScene extends CGFscene {
     };
 
     update(currTime) {
+        
         if(this.Speed!=this.lastSpeed){
         this.car.speed= this.Speed/100;
         this.lastSpeed=this.Speed;

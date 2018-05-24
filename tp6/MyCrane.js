@@ -4,7 +4,9 @@ class MyCrane extends CGFobject
     {
         super(scene);
         this.structure = new MyCraneStructure(this.scene);
-        this.angle = 0;
+        this.vertical_angle = 0;
+        this.horizontal_angle = 0;
+        this.state = -1;
 
     };
 
@@ -16,14 +18,41 @@ class MyCrane extends CGFobject
 	    this.scene.popMatrix();
     };
 
-    verticalMove()
+    move()
     {  
-       this.angle += Math.PI / 100;
+    	switch(this.state) {
+
+    		case -1:
+    			if(this.vertical_angle <= Math.PI)
+    			this.vertical_angle += Math.PI / 100;
+    			else this.state = 0;
+    			break;
+
+    		case 0: // down arm 2
+    			if(this.horizontal_angle <= Math.PI / 10)
+    			this.horizontal_angle += Math.PI / 100;
+    			else this.state = 1;
+    			break;
+
+    		case 1:
+    			if(this.horizontal_angle >= 0)
+    			this.horizontal_angle -= Math.PI / 100;
+    			else this.state = 2;
+				break;
+
+    		case 2:
+    			if(this.vertical_angle >= 0)
+    			this.vertical_angle -= Math.PI / 100;
+    			else this.state = -1;
+    			break;
+    			
+    	}
+
     };
 
     update() 
     {
-        this.verticalMove();
-        this.structure.setAngle(this.angle);
+        this.move();
+        this.structure.setAngle(this.vertical_angle, this.horizontal_angle);
     };
 };
