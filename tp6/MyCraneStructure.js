@@ -77,9 +77,9 @@ class MyCraneStructure extends CGFobject
 	       this.circle.display();
 	    this.scene.popMatrix();
 
-	    // Second Arm
+	   // Second Arm
 	    this.scene.pushMatrix();
-        this.scene.translate(0, 10.5, 5.9);
+        this.scene.translate(0, 10.8, 5.3);
         this.scene.rotate(this.horizontal_angle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 3.535);
@@ -88,7 +88,7 @@ class MyCraneStructure extends CGFobject
 
 	    // Second Arm Top
 	    this.scene.pushMatrix();
-        this.scene.translate(0, 8, 8.4);
+        this.scene.translate(0, 8.3, 7.8);
         this.scene.rotate(this.horizontal_angle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 1);
@@ -98,7 +98,7 @@ class MyCraneStructure extends CGFobject
 	    // Wire
 	    this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -8.2, 4.5);
+        this.scene.translate(0, -7.8, 4.5);
         this.scene.scale(0.05, 0.05, 4);
 	       this.cylinder.display();
 	    this.scene.popMatrix();
@@ -106,15 +106,15 @@ class MyCraneStructure extends CGFobject
 	    // Iman Base
 	    this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -8.2, 4.1);
+        this.scene.translate(0, -7.8, 4.1);
         this.scene.scale(0.5, 0.5, 0.5);
 	  	 	this.cylinder.display();
 	    this.scene.popMatrix();
 
-	    // Iman Top 1
+	    // Iman Top 1c
 	     this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -8.2, 4.6);
+        this.scene.translate(0, -7.8, 4.6);
         this.scene.scale(0.5, 0.5, 0.5);
 	       this.circle.display();
 	    this.scene.popMatrix();
@@ -122,7 +122,7 @@ class MyCraneStructure extends CGFobject
 	    // Iman Top 2
 	     this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, 8.2, -4.1);
+        this.scene.translate(0, 7.8, -4.1);
         this.scene.scale(0.5, 0.5, 0.5);
 	       this.circle.display();
 	    this.scene.popMatrix();
