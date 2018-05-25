@@ -7,8 +7,8 @@ class MyCraneStructure extends CGFobject
         
         this.cylinder = new MyCylinder(this.scene, 30, 1);
         this.circle = new MyCircle(this.scene, 100);
-        this.prism = new MyPrism(this.scene, 6, 1);
-        this.hexagon = new MyCircle(this.scene, 6);
+        this.arm = new MyArm(this.scene);
+        
         this.iman = new MyIman(this.scene);
 
         this.vertical_angle = 0;
@@ -52,7 +52,7 @@ class MyCraneStructure extends CGFobject
         this.scene.translate(0, 1, 0);
         this.scene.rotate(-Math.PI/2.8 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 11);
-	       this.prism.display();
+	       this.arm.display();
 	    this.scene.popMatrix();
 
         // Articulation
@@ -85,24 +85,15 @@ class MyCraneStructure extends CGFobject
         this.scene.rotate(this.horizontal_angle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 3.6);
-	       this.prism.display();
-	    this.scene.popMatrix();
-
-	    // Second Arm Top
-	    this.scene.pushMatrix();
-        this.scene.translate(0, 8.27, 7.8);
-        this.scene.rotate(this.horizontal_angle, 1, 0, 0);
-        this.scene.rotate(Math.PI/4 , 1, 0, 0);
-        this.scene.scale(0.5, 0.5, 1);
-	       this.hexagon.display();
+	       this.arm.display();
 	    this.scene.popMatrix();
 	
 		// Iman
-	    this.scene.translate(0,0,1.5);
-		this.scene.translate(0, -Math.sin(this.horizontal_angle), -Math.cos(this.horizontal_angle) - 1);
+		this.scene.translate(0,-1.59,-7);
+		this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + this.horizontal_angle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontal_angle) );
 		this.iman.display();
 
-		
+
         this.scene.popMatrix();
 
     }

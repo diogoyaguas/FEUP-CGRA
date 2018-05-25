@@ -370,6 +370,7 @@ class LightingScene extends CGFscene {
     update(currTime) {
 
         if (this.Speed != this.lastSpeed) {
+
             this.car.speed = this.Speed / 100;
             this.lastSpeed = this.Speed;
         }
@@ -380,7 +381,7 @@ class LightingScene extends CGFscene {
          if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
             this.car.moving = false;
             this.car.speed = 0;
-            this.crane.update();
+            this.crane.update(this.car);
          }
 
         let time = (currTime - this.lastUpdate);
