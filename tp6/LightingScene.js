@@ -8,6 +8,7 @@ class LightingScene extends CGFscene {
     };
 
     init(application) {
+
         super.init(application);
 
         this.initCameras();
@@ -21,7 +22,7 @@ class LightingScene extends CGFscene {
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
-        this.lastSpeed=0;
+        this.lastSpeed = 0;
 
         this.altimetry = [
             [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -35,7 +36,9 @@ class LightingScene extends CGFscene {
             [0.0, 0.0, 0.0, 0.0, 7.0, 6.6, 7.0, 0.0]
         ];
 
-        this.plane = [[]];
+        this.plane = [
+            []
+        ];
 
         // Scene elements
         this.car = new MyVehicle(this);
@@ -50,10 +53,13 @@ class LightingScene extends CGFscene {
         this.Light2 = true;
         this.Light3 = true;
         this.Light4 = true;
+        this.Light5 = true;
+        this.Light6 = true;
+        this.Light7 = true;
         this.show_axis = false;
         this.Speed = this.car.speed;
 
-        
+
         // Materials
         this.materialDefault = new CGFappearance(this);
 
@@ -107,6 +113,10 @@ class LightingScene extends CGFscene {
     initLights() {
         this.setGlobalAmbientLight(0, 0, 0, 1.0);
 
+        console.log(this.lights.length);
+
+        console.log(this.lights.length);
+
         this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
         this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 
@@ -135,30 +145,22 @@ class LightingScene extends CGFscene {
 
         this.lights[1].setAmbient(0, 0, 0, 1);
         this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[1].enable();
 
-        this.lights[2].setSpecular(1, 1, 1, 1);
         this.lights[2].setAmbient(0, 0, 0, 1);
         this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[2].setConstantAttenuation(0);
-        this.lights[2].setLinearAttenuation(1);
-        this.lights[2].setQuadraticAttenuation(0);
+        this.lights[2].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[2].enable();
 
         this.lights[3].setAmbient(0, 0, 0, 1);
         this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[3].setSpecular(1.0, 1.0, 0, 1.0);
-        this.lights[3].setConstantAttenuation(0);
-        this.lights[3].setLinearAttenuation(0);
-        this.lights[3].setQuadraticAttenuation(0.2);
         this.lights[3].enable();
 
         this.lights[4].setAmbient(0, 0, 0, 1);
         this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[4].setSpecular(1.0, 1.0, 1.00, 1.0);
-        this.lights[4].setConstantAttenuation(1);
-        this.lights[4].setLinearAttenuation(1);
-        this.lights[4].setQuadraticAttenuation(0.2);
+        this.lights[4].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[4].enable();
 
         this.lights[5].setAmbient(0, 0, 0, 1);
@@ -185,6 +187,12 @@ class LightingScene extends CGFscene {
             this.lights[2].enable();
         if (this.Light4)
             this.lights[3].enable();
+        if (this.Light5)
+            this.lights[4].enable();
+        if (this.Light6)
+            this.lights[5].enable();
+        if (this.Light7)
+            this.lights[6].enable();
 
         if (!this.Light1)
             this.lights[0].disable();
@@ -194,6 +202,13 @@ class LightingScene extends CGFscene {
             this.lights[2].disable();
         if (!this.Light4)
             this.lights[3].disable();
+        if (!this.Light5)
+            this.lights[4].disable();
+        if (!this.Light6)
+            this.lights[5].disable();
+        if (!this.Light7)
+            this.lights[6].disable();
+
 
     }
 
@@ -205,38 +220,32 @@ class LightingScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyW")) {
             text += " W ";
             keysPressed = true;
+            if(this.car.moving)
             this.car.moveForward();
-            this.Speed=this.car.speed*100;
+            this.Speed = this.car.speed * 100;
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
             text += " S ";
             keysPressed = true;
+            if(this.car.moving)
             this.car.moveBackward();
-            this.Speed=this.car.speed*100;
+            this.Speed = this.car.speed * 100;
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
             text += " A ";
             keysPressed = true;
+            if(this.car.moving)
             this.car.moveLeft();
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
             text += " D ";
             keysPressed = true;
+            if(this.car.moving)
             this.car.moveRight();
         }
-
-        if (this.gui.isKeyPressed("KeyC")) {
-            text += " C ";
-            
-            //if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
-            this.crane.update();
-            //}
-        }
-        
-
 
         if (keysPressed)
             console.log(text);
@@ -299,7 +308,7 @@ class LightingScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.rotate(Math.PI / 2 , 0, 1, 0);
+        this.rotate(Math.PI / 2, 0, 1, 0);
         this.translate(0, 5, 0);
         this.scale(50, 50, 1);
         this.translate(0, -0.6, 25);
@@ -308,7 +317,7 @@ class LightingScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.rotate(Math.PI , 0, 1, 0);
+        this.rotate(Math.PI, 0, 1, 0);
         this.translate(0, 5, 0);
         this.scale(50, 50, 1);
         this.translate(0, -0.6, 25);
@@ -317,7 +326,7 @@ class LightingScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.rotate(- Math.PI / 2 , 0, 1, 0);
+        this.rotate(-Math.PI / 2, 0, 1, 0);
         this.translate(0, 5, 0);
         this.scale(50, 50, 1);
         this.translate(0, -0.6, 25);
@@ -326,8 +335,8 @@ class LightingScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.rotate(- Math.PI / 2 , 0, 1, 0);
-        this.rotate(Math.PI / 2 , 1, 0, 0);
+        this.rotate(-Math.PI / 2, 0, 1, 0);
+        this.rotate(Math.PI / 2, 1, 0, 0);
         this.translate(0, 5, 0);
         this.scale(50, 50, 1);
         this.translate(0, -0.1, 50);
@@ -359,18 +368,24 @@ class LightingScene extends CGFscene {
     };
 
     update(currTime) {
-        
-        if(this.Speed!=this.lastSpeed){
-        this.car.speed= this.Speed/100;
-        this.lastSpeed=this.Speed;
+
+        if (this.Speed != this.lastSpeed) {
+            this.car.speed = this.Speed / 100;
+            this.lastSpeed = this.Speed;
         }
 
         this.car.update();
         this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
 
+         if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
+            this.car.moving = false;
+            this.car.speed = 0;
+            this.crane.update();
+         }
+
         let time = (currTime - this.lastUpdate);
 
-        this.lake.setAngle(this.lake.getAngle() + time / 100000);        
+        this.lake.setAngle(this.lake.getAngle() + time / 100000);
 
         this.lastUpdate = currTime;
 

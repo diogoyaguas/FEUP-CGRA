@@ -12,6 +12,7 @@ class MyVehicle extends CGFobject {
     	this.z = 0; 
 
     	this.speed = 0;
+    	this.moving = true;
 
     	this.rotationAngle = 0;
     	this.turnAngle = 0;

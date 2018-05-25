@@ -4,10 +4,12 @@ class MyCraneStructure extends CGFobject
     constructor(scene) 
     {
         super(scene);
+        
         this.cylinder = new MyCylinder(this.scene, 30, 1);
         this.circle = new MyCircle(this.scene, 100);
         this.prism = new MyPrism(this.scene, 6, 1);
         this.hexagon = new MyCircle(this.scene, 6);
+        this.iman = new MyIman(this.scene);
 
         this.vertical_angle = 0;
         this.horizontal_angle = 0;
@@ -29,14 +31,14 @@ class MyCraneStructure extends CGFobject
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.translate(0, 0.5, 0);
-        this.scene.scale(1.5,1.5,1);
+        this.scene.scale(1.5,1.5,1.3);
 	  	 	this.cylinder.display();
 	    this.scene.popMatrix();
     
         // Base Top
 	    this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, 0.5, 1);
+        this.scene.translate(0, 0.5, 1.3);
         this.scene.scale(1.5,1.5,1);
 	       this.circle.display();
 	    this.scene.popMatrix();
@@ -82,51 +84,25 @@ class MyCraneStructure extends CGFobject
         this.scene.translate(0, 10.8, 5.3);
         this.scene.rotate(this.horizontal_angle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
-        this.scene.scale(0.5, 0.5, 3.535);
+        this.scene.scale(0.5, 0.5, 3.6);
 	       this.prism.display();
 	    this.scene.popMatrix();
 
 	    // Second Arm Top
 	    this.scene.pushMatrix();
-        this.scene.translate(0, 8.3, 7.8);
+        this.scene.translate(0, 8.27, 7.8);
         this.scene.rotate(this.horizontal_angle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 1);
 	       this.hexagon.display();
 	    this.scene.popMatrix();
+	
+		// Iman
+	    this.scene.translate(0,0,1.5);
+		this.scene.translate(0, -Math.sin(this.horizontal_angle), -Math.cos(this.horizontal_angle) - 1);
+		this.iman.display();
 
-	    // Wire
-	    this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -7.8, 4.5);
-        this.scene.scale(0.05, 0.05, 4);
-	       this.cylinder.display();
-	    this.scene.popMatrix();
-
-	    // Iman Base
-	    this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -7.8, 4.1);
-        this.scene.scale(0.5, 0.5, 0.5);
-	  	 	this.cylinder.display();
-	    this.scene.popMatrix();
-
-	    // Iman Top 1c
-	     this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, -7.8, 4.6);
-        this.scene.scale(0.5, 0.5, 0.5);
-	       this.circle.display();
-	    this.scene.popMatrix();
-
-	    // Iman Top 2
-	     this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.translate(0, 7.8, -4.1);
-        this.scene.scale(0.5, 0.5, 0.5);
-	       this.circle.display();
-	    this.scene.popMatrix();
-
+		
         this.scene.popMatrix();
 
     }

@@ -6,7 +6,7 @@ class MyVehicleStructure extends CGFobject {
         this.front_wheel = new MyWheel(this.scene);
         this.back_wheel = new MyWheel(this.scene);
         this.substitute_wheel = new MyWheel(this.scene);
-        this.sphere = new MySemiSphere(this.scene, 30, 5);
+        this.sphere = new MyLamp(this.scene, 30, 5);
         this.trapezius = new MyTrapezius(this.scene, 0.8, 1.2, 0.3);
         //this.cylinder = new MyCylinder(this,scene, 5, 5);
 
