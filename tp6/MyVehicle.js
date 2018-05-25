@@ -18,17 +18,18 @@ class MyVehicle extends CGFobject {
     	this.turnAngle = 0;
     	this.orientation = 0;
 
-    	this.horizontal_angle = 0;
+    	this.horizontalAngle = Math.PI / 10;
+    	this.horizontalAngleHeight = Math.PI / 10;
 
     };
 
     display() {
 
         this.scene.pushMatrix();
-        //this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + horizontal_angle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + horizontal_angle));
+        this.scene.translate((11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontalAngleHeight)), (11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 - this.horizontalAngle) - 4), 0);
         this.scene.translate(this.x, 1, -this.z);
         this.scene.rotate(this.orientation, 0, 1, 0);
-        this.scene.translate(2.5, 0, 0);
+        this.scene.translate(2.5, 2.45, 0);
         this.structure.display();
         this.scene.popMatrix();
 
@@ -91,8 +92,14 @@ class MyVehicle extends CGFobject {
 
     };
 
-    craneGetsCar(horizontal_angle) {
-        this.horizontal_angle = horizontal_angle;
+    craneGetsCar(horizontalAngle, horizontalAngleHeight) {
+        this.horizontalAngle = horizontalAngle;
+        this.horizontalAngleHeight = horizontalAngleHeight;
+
+    };
+
+    rotateCar(verticalAngle) {
+        this.verticalAngle = verticalAngle;
     };
 
 };

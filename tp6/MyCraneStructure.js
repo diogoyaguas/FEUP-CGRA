@@ -11,8 +11,8 @@ class MyCraneStructure extends CGFobject
         
         this.iman = new MyIman(this.scene);
 
-        this.vertical_angle = 0;
-        this.horizontal_angle = 0;
+        this.verticalAngle = 0;
+        this.horizontalAngle = 0;
 
         this.metalAppearence = new CGFappearance(this.scene);
 		this.metalAppearence.loadTexture("resources/images/metal.jpg");
@@ -45,7 +45,7 @@ class MyCraneStructure extends CGFobject
 
 	    this.scene.translate(0, 0, -0.5);
 
-	    this.scene.rotate(this.vertical_angle, 0, 1, 0);
+	    this.scene.rotate(this.verticalAngle, 0, 1, 0);
     
         // First Arm
 	    this.scene.pushMatrix();
@@ -82,7 +82,7 @@ class MyCraneStructure extends CGFobject
 	   // Second Arm
 	    this.scene.pushMatrix();
         this.scene.translate(0, 10.8, 5.3);
-        this.scene.rotate(this.horizontal_angle, 1, 0, 0);
+        this.scene.rotate(this.horizontalAngle, 1, 0, 0);
         this.scene.rotate(Math.PI/4 , 1, 0, 0);
         this.scene.scale(0.5, 0.5, 3.6);
 	       this.arm.display();
@@ -90,7 +90,7 @@ class MyCraneStructure extends CGFobject
 	
 		// Iman
 		this.scene.translate(0,-1.59,-7);
-		this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + this.horizontal_angle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontal_angle) );
+		this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + this.horizontalAngle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontalAngle) );
 		this.iman.display();
 
         this.scene.popMatrix();
@@ -99,8 +99,8 @@ class MyCraneStructure extends CGFobject
 
     setAngle(angle1, angle2) {
 
-       this.vertical_angle = angle1;
-       this.horizontal_angle = angle2;
+       this.verticalAngle = angle1;
+       this.horizontalAngle = angle2;
 
     }
 }
