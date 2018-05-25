@@ -381,6 +381,7 @@ class LightingScene extends CGFscene {
          if (this.car.x < -6.5 && this.car.x > -9 && this.car.z > -13 && this.car.z < -10){
             this.car.moving = false;
             this.car.speed = 0;
+            this.crane.setCar(this.car);
             this.crane.update(this.car);
          }
 

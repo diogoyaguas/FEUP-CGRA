@@ -7,6 +7,7 @@ class MyCrane extends CGFobject
         this.vertical_angle = 0;
         this.horizontal_angle = 0;
         this.state = -1;
+        this.car = 0;
 
     };
 
@@ -18,7 +19,7 @@ class MyCrane extends CGFobject
 	    this.scene.popMatrix();
     };
 
-    move(car)
+    move()
     {  
     	switch(this.state) {
 
@@ -37,7 +38,6 @@ class MyCrane extends CGFobject
     		case 1:
     			if(this.horizontal_angle >= 0){
     				this.horizontal_angle -= Math.PI / 100;
-    				car.craneGetsCar(this.horizontal_angle);
     			}
     			else this.state = 2;
 				break;
@@ -56,9 +56,15 @@ class MyCrane extends CGFobject
 
     };
 
-    update(car) 
+    update() 
     {
-        this.move(car);
+        this.move();
         this.structure.setAngle(this.vertical_angle, this.horizontal_angle);
+        this.car.craneGetsCar(this.horizontal_angle);
+    };
+
+    setCar(car) {
+
+    	this.car = car;
     };
 };
