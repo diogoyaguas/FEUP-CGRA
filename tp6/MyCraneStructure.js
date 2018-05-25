@@ -93,7 +93,6 @@ class MyCraneStructure extends CGFobject
 		this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + this.horizontal_angle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontal_angle) );
 		this.iman.display();
 
-
         this.scene.popMatrix();
 
     }

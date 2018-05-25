@@ -8,7 +8,8 @@ class MyVehicleStructure extends CGFobject {
         this.substitute_wheel = new MyWheel(this.scene);
         this.sphere = new MyLamp(this.scene, 30, 5);
         this.trapezius = new MyTrapezius(this.scene, 0.8, 1.2, 0.3);
-        //this.cylinder = new MyCylinder(this,scene, 5, 5);
+        this.cylinder = new MyCylinder(this.scene, 30, 1);
+        this.circle = new MyCircle(this.scene, 30, 1);
 
         this.glassAppearence = new CGFappearance(this.scene);
         this.glassAppearence.setAmbient(0.3, 0.3, 0.3, 1);
@@ -272,33 +273,31 @@ class MyVehicleStructure extends CGFobject {
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         this.substitute_wheel.display();
         this.scene.popMatrix();
-	    
-	//axis1
-	this.scene.pushMatrix();
-	this.scene.translate(1.70,-0.5,-1);
-	this.scene.scale(0.075, 0.075, 2.1);
-	this.blackMetalAppearence.apply();
-	this.cylinder.display();
-	this.scene.popMatrix();
 
-	//axis2
-        this.scene.pushMatrix();
-        this.scene.translate(4.4,-0.5,-1);
-        this.scene.scale(0.075, 0.075, 2.1);
-        this.blackMetalAppearence.apply();
-        this.cylinder.display();
-        this.scene.popMatrix();
+         //axis1
+	    this.scene.pushMatrix();
+	    this.scene.translate(1.70,-0.5,-1);
+	    this.scene.scale(0.075, 0.075, 2.1);
+	    this.blackMetalAppearence.apply();
+	    this.cylinder.display();
+	    this.scene.popMatrix();
 
-        //axis3
-        this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.translate(0,-0.5,1.7);
-        this.scene.scale(0.075, 0.075, 2.7);
-        this.blackMetalAppearence.apply();
-	this.cylinder.display();
-	this.scene.popMatrix();
+	    //axis2
+	    this.scene.pushMatrix();
+	    this.scene.translate(4.4,-0.5,-1);
+	    this.scene.scale(0.075, 0.075, 2.1);
+	    this.blackMetalAppearence.apply();
+	    this.cylinder.display();
+	    this.scene.popMatrix();
 
-
+	    //axis3
+	    this.scene.pushMatrix();
+	    this.scene.rotate(Math.PI/2, 0, 1, 0);
+	    this.scene.translate(0,-0.5,1.7);
+	    this.scene.scale(0.075, 0.075, 2.7);
+	    this.blackMetalAppearence.apply();
+	    this.cylinder.display();
+	    this.scene.popMatrix();
 
         this.scene.popMatrix();
 

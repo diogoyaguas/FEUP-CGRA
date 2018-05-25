@@ -47,11 +47,11 @@ class MyCrane extends CGFobject
     		case 2:
     			if(this.vertical_angle >= 0)
     			this.vertical_angle -= Math.PI / 100;
-    			else this.state = -3;
+    			else this.state = 3;
     			break;
 
     		case 3:
-    			car.dropCar();
+				//car.dropCar();
     			break;
     			
     	}
@@ -63,6 +63,7 @@ class MyCrane extends CGFobject
         this.move();
         this.structure.setAngle(this.vertical_angle, this.horizontal_angle);
         if(this.craneGetsCar) this.car.craneGetsCar(this.horizontal_angle);
+
     };
 
     setCar(car) {
