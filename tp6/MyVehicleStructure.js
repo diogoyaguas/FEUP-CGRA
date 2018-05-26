@@ -38,7 +38,8 @@ class MyVehicleStructure extends CGFobject {
     display() {
 
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI , 0, 1, 0);
+        this.scene.rotate(Math.PI , 0, 1, 0);        
+
 
         //body down
         this.scene.pushMatrix();

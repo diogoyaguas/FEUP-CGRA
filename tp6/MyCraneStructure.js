@@ -11,6 +11,10 @@ class MyCraneStructure extends CGFobject
         
         this.iman = new MyIman(this.scene);
 
+        this.rotateCar = false;
+		this.carView = true;
+	 	
+		this.verticalCar = Math.PI;
         this.verticalAngle = 0;
         this.horizontalAngle = 0;
 
@@ -45,7 +49,13 @@ class MyCraneStructure extends CGFobject
 
 	    this.scene.translate(0, 0, -0.5);
 
+		this.scene.pushMatrix();
+
 	    this.scene.rotate(this.verticalAngle, 0, 1, 0);
+
+	    this.scene.pushMatrix();
+
+	    this.scene.rotate(Math.PI, 0, 1, 0);
     
         // First Arm
 	    this.scene.pushMatrix();
@@ -89,18 +99,41 @@ class MyCraneStructure extends CGFobject
 	    this.scene.popMatrix();
 	
 		// Iman
+		this.scene.pushMatrix();
 		this.scene.translate(0,-1.59,-7);
 		this.scene.translate(0, -(11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 + this.horizontalAngle) - 4), 11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontalAngle) );
 		this.iman.display();
+		this.scene.popMatrix();
+
+		this.scene.popMatrix();
+
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+
+		if(this.rotateCar)
+		this.scene.rotate(this.verticalCar - Math.PI, 0, 1, 0);
+
+		this.scene.pushMatrix();
+		this.scene.translate(8,0,-11.5);
+		this.scene.vehicleAppearances[this.scene.currVehicleAppearance].apply();
+		if(this.verticalCar > 0.05) this.scene.car.display();
+		this.scene.popMatrix();
+
+		this.scene.popMatrix();
 
         this.scene.popMatrix();
 
     }
 
-    setAngle(angle1, angle2) {
+    set(angle1, angle2, bool1, bool2) {
 
        this.verticalAngle = angle1;
        this.horizontalAngle = angle2;
+       this.verticalCar = angle1;
+       this.rotateCar = bool1;
+       this.carView = bool2;
 
     }
+
 }

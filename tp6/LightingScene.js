@@ -118,10 +118,10 @@ class LightingScene extends CGFscene {
 
         console.log(this.lights.length);
 
-        this.lights[0].setPosition(4.0, 6.0, 1.0, 1.0);
+        this.lights[0].setPosition(4.0, 10.0, 1.0, 1.0);
         this.lights[0].setVisible(false); // show marker on light position (different from enabled)
 
-        this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
+        this.lights[1].setPosition(10.5, 10.0, 1.0, 1.0);
         this.lights[1].setVisible(false); // show marker on light position (different from enabled)
 
         this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
@@ -144,7 +144,7 @@ class LightingScene extends CGFscene {
         this.lights[0].setSpecular(1.0, 0.25, 0, 1.0);
         this.lights[0].enable();
 
-        this.lights[1].setAmbient(0, 0, 0.2, 1);
+        this.lights[1].setAmbient(0, 0, 0, 1);
         this.lights[1].setDiffuse(0.3, 1.0, 1.0, 1.0);
         this.lights[1].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[1].enable();
@@ -154,12 +154,12 @@ class LightingScene extends CGFscene {
         this.lights[2].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[2].enable();
 
-        this.lights[3].setAmbient(0, 0.2, 0, 1);
+        this.lights[3].setAmbient(0, 0., 0, 1);
         this.lights[3].setDiffuse(0.4, 1.0, 0.8, 1.0);
         this.lights[3].setSpecular(1.0, 0.2, 0, 1.0);
         this.lights[3].enable();
 
-        this.lights[4].setAmbient(0.2, 0, 0, 1);
+        this.lights[4].setAmbient(0, 0, 0, 1);
         this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[4].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[4].enable();
@@ -169,7 +169,7 @@ class LightingScene extends CGFscene {
         this.lights[5].setSpecular(0.3, 0.7, 0, 1.0);
         this.lights[5].enable();
 
-        this.lights[6].setAmbient(0.2, 0.2, 0.2, 1);
+        this.lights[6].setAmbient(0, 0, 0, 1);
         this.lights[6].setDiffuse(0.4, 0.3, 0.6, 1.0);
         this.lights[6].setSpecular(1.0, 0.5, 0, 1.0);
         this.lights[6].enable();
@@ -260,6 +260,19 @@ class LightingScene extends CGFscene {
             console.log(this.car.z);
         }
 
+        if (this.gui.isKeyPressed("KeyC")) {
+            text += " C ";
+            keysPressed = true;
+            
+            if (this.car.z < -17 && this.car.z > -19 && this.car.x < -14 && this.car.x > -15){
+            this.car.moving = false;
+            this.car.speed = 0;
+            this.crane.setCar(this.car);
+            this.crane.update();
+         }
+        }
+        
+
         if (keysPressed)
             console.log(text);
     }
@@ -297,12 +310,13 @@ class LightingScene extends CGFscene {
         // ---- BEGIN Scene drawing section
 
         // Car
+        if(this.car.moving){
         this.pushMatrix();
-        this.vehicleAppearances[this.currVehicleAppearance].apply();
         this.translate(-5,0,0);
-        //this.rotate(Math.PI, 0, 1, 0);
+        this.vehicleAppearances[this.currVehicleAppearance].apply();
         this.car.display();
         this.popMatrix();
+        }
 
         // Lake
         this.pushMatrix();
@@ -370,8 +384,8 @@ class LightingScene extends CGFscene {
 
         // Crane
         this.pushMatrix();
+
         this.translate(-13, 0, 12);
-        this.rotate(-Math.PI / 2, 0, 1, 0);
         this.crane.display();
         this.popMatrix();
 
@@ -400,7 +414,7 @@ class LightingScene extends CGFscene {
         this.popMatrix();
         
         this.pushMatrix();
-        this.translate(10, 7.1, 15.5)
+        this.translate(10, 6.8, 15.5)
         this.scale(1.25,1.5,1.25);
         this.tree.display();
         this.popMatrix();
@@ -422,13 +436,6 @@ class LightingScene extends CGFscene {
 
         this.car.update();
         this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
-
-         if (this.car.x < -8.8 && this.car.x > -9.5 && this.car.z < -8.5 && this.car.z > -0.5){
-            this.car.moving = false;
-            this.car.speed = 0;
-            this.crane.setCar(this.car);
-            this.crane.update(this.car);
-         }
 
         let time = (currTime - this.lastUpdate);
 
