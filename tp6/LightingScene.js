@@ -136,16 +136,16 @@ class LightingScene extends CGFscene {
         this.lights[5].setPosition(-8.0, 6.0, -8.0, 1.0);
         this.lights[5].setVisible(false); // show marker on light position (different from enabled)
 
-        this.lights[6].setPosition(12, 12, 15, 1.0);
-        this.lights[6].setVisible(false); // show marker on light position (different from enabled)
+        this.lights[6].setPosition(12, 25, 23, 1.0);
+        this.lights[6].setVisible(); // show marker on light position (different from enabled)
 
         this.lights[0].setAmbient(0, 0, 0, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[0].setDiffuse(1.0, 1.0, 0.6, 1.0);
+        this.lights[0].setSpecular(1.0, 0.25, 0, 1.0);
         this.lights[0].enable();
 
-        this.lights[1].setAmbient(0, 0, 0, 1);
-        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].setAmbient(0, 0, 0.2, 1);
+        this.lights[1].setDiffuse(0.3, 1.0, 1.0, 1.0);
         this.lights[1].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[1].enable();
 
@@ -154,24 +154,24 @@ class LightingScene extends CGFscene {
         this.lights[2].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[2].enable();
 
-        this.lights[3].setAmbient(0, 0, 0, 1);
-        this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[3].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[3].setAmbient(0, 0.2, 0, 1);
+        this.lights[3].setDiffuse(0.4, 1.0, 0.8, 1.0);
+        this.lights[3].setSpecular(1.0, 0.2, 0, 1.0);
         this.lights[3].enable();
 
-        this.lights[4].setAmbient(0, 0, 0, 1);
+        this.lights[4].setAmbient(0.2, 0, 0, 1);
         this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[4].setSpecular(1.0, 1.0, 0, 1.0);
         this.lights[4].enable();
 
         this.lights[5].setAmbient(0, 0, 0, 1);
-        this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[5].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[5].setDiffuse(0.5, 0.5, 0.2, 1.0);
+        this.lights[5].setSpecular(0.3, 0.7, 0, 1.0);
         this.lights[5].enable();
 
-        this.lights[6].setAmbient(0, 0, 0, 1);
-        this.lights[6].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[6].setSpecular(1.0, 1.0, 0, 1.0);
+        this.lights[6].setAmbient(0.2, 0.2, 0.2, 1);
+        this.lights[6].setDiffuse(0.4, 0.3, 0.6, 1.0);
+        this.lights[6].setSpecular(1.0, 0.5, 0, 1.0);
         this.lights[6].enable();
 
     };
@@ -398,6 +398,12 @@ class LightingScene extends CGFscene {
         this.scale(1.2,1.2,1.2);
         this.tree.display();
         this.popMatrix();
+        
+        this.pushMatrix();
+        this.translate(10, 7.1, 15.5)
+        this.scale(1.25,1.5,1.25);
+        this.tree.display();
+        this.popMatrix();
 
         // ---- END Scene drawing section
     };
@@ -417,7 +423,7 @@ class LightingScene extends CGFscene {
         this.car.update();
         this.currVehicleAppearance = this.vehicleAppearanceList[this.Textures];
 
-         if (this.car.x < -6.8 && this.car.x > -7.5 && this.car.z < -10.5 && this.car.z > -12.5){
+         if (this.car.x < -8.8 && this.car.x > -9.5 && this.car.z < -8.5 && this.car.z > -0.5){
             this.car.moving = false;
             this.car.speed = 0;
             this.crane.setCar(this.car);
