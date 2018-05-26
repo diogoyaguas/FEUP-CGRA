@@ -46,6 +46,13 @@ class MyVehicleStructure extends CGFobject {
         this.licenseAppearence.setSpecular(0.1, 0.1, 0.1, 1);
         this.licenseAppearence.setShininess(10);
         this.licenseAppearence.loadTexture("resources/images/license.png");
+
+        this.jeepAppearence = new CGFappearance(this.scene);
+        this.jeepAppearence.setAmbient(0.3, 0.3, 0.3, 1);
+        this.jeepAppearence.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.jeepAppearence.setSpecular(0.1, 0.1, 0.1, 1);
+        this.jeepAppearence.setShininess(10);
+        this.jeepAppearence.loadTexture("resources/images/jeep.jpg");
     };
 
     display() {
@@ -148,6 +155,14 @@ class MyVehicleStructure extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(2.06, 1.7, -1.12);
         this.scene.scale(0.72, 0.9, 0.25);
+        this.quad.display();
+        this.scene.popMatrix();
+
+        // Jeep
+        this.scene.pushMatrix();
+        this.scene.translate(0.75, 0.8, 0);
+        this.scene.scale(0.005, 0.3, 0.4);
+        this.jeepAppearence.apply();
         this.quad.display();
         this.scene.popMatrix();
 
