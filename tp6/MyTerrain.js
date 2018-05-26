@@ -2,28 +2,31 @@ class MyTerrain extends Plane
 {
 	constructor(scene, nrDivs, altimetry)
 	{
-        super(scene, nrDivs, 0, 100, 0, 100);
+		super(scene, nrDivs, 0, 100, 0, 100);
 
 		this.altimetry = altimetry;
 		this.applyAltimetry();
 
-    };
+	};
 
 	display()
 	{
-        this.scene.pushMatrix();
-	  	 	super.display();
-	    this.scene.popMatrix();
+		this.scene.pushMatrix();
+		super.display();
+		this.scene.popMatrix();
 
 	};
 
-	applyAltimetry() {
+	applyAltimetry()
+	{
 
 		let count = 2;
 
-		for(let i = 0; i < this.altimetry.length; i++){
+		for (let i = 0; i < this.altimetry.length; i++)
+		{
 
-			for(let j = 0; j < this.altimetry[i].length; j++){
+			for (let j = 0; j < this.altimetry[i].length; j++)
+			{
 
 				this.vertices[count] = this.altimetry[i][j];
 				count += 3;

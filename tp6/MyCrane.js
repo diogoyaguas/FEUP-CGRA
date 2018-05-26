@@ -28,7 +28,7 @@ class MyCrane extends CGFobject {
         switch (this.state) {
 
             case -1: // rotate to get car
-            	this.carView = true;
+                this.carView = true;
                 this.craneGetsCar = false;
                 this.rotateCar = false;
                 this.craneMove = true;
@@ -68,11 +68,13 @@ class MyCrane extends CGFobject {
                     if (this.horizontalAngle <= Math.PI / 10)
                         this.horizontalAngle += Math.PI / 100;
                     else this.landed = true;
-                } else {this.state = 4;
-                this.carView = false;}
+                } else {
+                    this.state = 4;
+                    this.carView = false;
+                }
                 break;
             case 4:
-            	
+
                 this.car.moving = true;
                 this.car.x = -14.5;
                 this.car.z = -4.5;
@@ -84,7 +86,7 @@ class MyCrane extends CGFobject {
     };
 
     update() {
-    	this.move();
+        this.move();
         if (this.craneGetsCar) this.car.craneGetsCar(this.horizontalAngle, this.horizontalAngleHeight);
         if (this.craneMove) this.structure.set(this.verticalAngle, this.horizontalAngle, this.rotateCar, this.carView);
 

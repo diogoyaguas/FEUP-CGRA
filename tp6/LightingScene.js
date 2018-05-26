@@ -221,31 +221,31 @@ class LightingScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyW")) {
             text += " W ";
             keysPressed = true;
-            if(this.car.moving)
-            this.car.moveForward();
+            if (this.car.moving)
+                this.car.moveForward();
             this.Speed = this.car.speed * 100;
         }
 
         if (this.gui.isKeyPressed("KeyS")) {
             text += " S ";
             keysPressed = true;
-            if(this.car.moving)
-            this.car.moveBackward();
+            if (this.car.moving)
+                this.car.moveBackward();
             this.Speed = this.car.speed * 100;
         }
 
         if (this.gui.isKeyPressed("KeyA")) {
             text += " A ";
             keysPressed = true;
-            if(this.car.moving)
-            this.car.moveLeft();
+            if (this.car.moving)
+                this.car.moveLeft();
         }
 
         if (this.gui.isKeyPressed("KeyD")) {
             text += " D ";
             keysPressed = true;
-            if(this.car.moving)
-            this.car.moveRight();
+            if (this.car.moving)
+                this.car.moveRight();
         }
 
         if (this.gui.isKeyPressed("KeyR")) {
@@ -263,15 +263,15 @@ class LightingScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyC")) {
             text += " C ";
             keysPressed = true;
-            
-            if (this.car.z < -17 && this.car.z > -19 && this.car.x < -14 && this.car.x > -15){
-            this.car.moving = false;
-            this.car.speed = 0;
-            this.crane.setCar(this.car);
-            this.crane.update();
-         }
+
+            if (this.car.z < -17 && this.car.z > -19 && this.car.x < -14 && this.car.x > -15) {
+                this.car.moving = false;
+                this.car.speed = 0;
+                this.crane.setCar(this.car);
+                this.crane.update();
+            }
         }
-        
+
 
         if (keysPressed)
             console.log(text);
@@ -310,12 +310,12 @@ class LightingScene extends CGFscene {
         // ---- BEGIN Scene drawing section
 
         // Car
-        if(this.car.moving){
-        this.pushMatrix();
-        this.translate(-5,0,0);
-        this.vehicleAppearances[this.currVehicleAppearance].apply();
-        this.car.display();
-        this.popMatrix();
+        if (this.car.moving) {
+            this.pushMatrix();
+            this.translate(-5, 0, 0);
+            this.vehicleAppearances[this.currVehicleAppearance].apply();
+            this.car.display();
+            this.popMatrix();
         }
 
         // Lake
@@ -397,8 +397,8 @@ class LightingScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(-15, 0, -17)
-        
-        this.scale(1.1,1.1,1.1);
+
+        this.scale(1.1, 1.1, 1.1);
         this.tree.display();
         this.popMatrix();
 
@@ -409,13 +409,13 @@ class LightingScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(10, 0, -18)
-        this.scale(1.2,1.2,1.2);
+        this.scale(1.2, 1.2, 1.2);
         this.tree.display();
         this.popMatrix();
-        
+
         this.pushMatrix();
         this.translate(10, 6.8, 15.5)
-        this.scale(1.25,1.5,1.25);
+        this.scale(1.25, 1.5, 1.25);
         this.tree.display();
         this.popMatrix();
 

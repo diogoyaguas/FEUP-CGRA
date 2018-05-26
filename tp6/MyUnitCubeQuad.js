@@ -4,14 +4,14 @@
  */
 class MyUnitCubeQuad extends CGFobject
 {
-	constructor(scene) 
+	constructor(scene)
 	{
 		super(scene);
 
 		this.quad = new MyQuad(this.scene);
 	};
 
-	display() 
+	display()
 	{
 		// front face
 		this.scene.pushMatrix();

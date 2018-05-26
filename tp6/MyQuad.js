@@ -4,7 +4,8 @@
  */
 class MyQuad extends CGFobject
 {
-	constructor(scene, minS, maxS, minT, maxT) {
+	constructor(scene, minS, maxS, minT, maxT)
+	{
 		super(scene);
 		this.minS = minS || 0;
 		this.maxS = maxS || 1;
@@ -13,18 +14,16 @@ class MyQuad extends CGFobject
 		this.initBuffers();
 	};
 
-	initBuffers() 
+	initBuffers()
 	{
-		this.vertices = [
-		-0.5, -0.5, 0,
-		0.5, -0.5, 0,
-		-0.5, 0.5, 0,
-		0.5, 0.5, 0
+		this.vertices = [-0.5, -0.5, 0,
+			0.5, -0.5, 0, -0.5, 0.5, 0,
+			0.5, 0.5, 0
 		];
 
 		this.indices = [
-		0, 1, 2, 
-		3, 2, 1
+			0, 1, 2,
+			3, 2, 1
 		];
 
 		this.normals = [
