@@ -20,16 +20,19 @@ class MyVehicle extends CGFobject {
 
     	this.horizontalAngle = Math.PI / 10;
     	this.horizontalAngleHeight = Math.PI / 10;
+    	this.verticalAngle = Math.PI;
 
     };
 
     display() {
 
         this.scene.pushMatrix();
+        //this.scene.rotate(this.verticalAngle, 0, 1, 0);
         this.scene.translate((11 * Math.sin(Math.PI/2.8)- 4 * Math.sin(Math.PI / 4 + this.horizontalAngleHeight)), (11 * Math.cos(Math.PI/2.8) - 3.6 * Math.cos(Math.PI / 4 - this.horizontalAngle) - 4), 0);
         this.scene.translate(this.x, 1, -this.z);
         this.scene.rotate(this.orientation, 0, 1, 0);
         this.scene.translate(2.5, 2.45, 0);
+        
         this.structure.display();
         this.scene.popMatrix();
 

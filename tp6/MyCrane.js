@@ -68,7 +68,7 @@ class MyCrane extends CGFobject
     			if(!this.landed){
     			this.craneMove = false;
 				if(this.horizontalAngle <= Math.PI / 10)
-    			this.horizontalAngle += Math.PI / 50;
+    			this.horizontalAngle += Math.PI / 100;
     			else this.landed = true;
     			} 
     			else this.state = 4;

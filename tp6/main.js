@@ -23,6 +23,7 @@ serialInclude([
 	'MyCraneStructure.js',
 	'MyIman.js',
 	'MyArm.js',
+	'MyTree.js',
 
 
 	main=function() {

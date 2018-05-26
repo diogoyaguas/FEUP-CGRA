@@ -46,6 +46,7 @@ class LightingScene extends CGFscene {
         this.plane = new MyTerrain(this, 8, this.plane);
         this.lake = new MyLake(this, 10000);
         this.crane = new MyCrane(this);
+        this.tree = new MyTree(this);
 
         // GUI elements
         this.axis = new CGFaxis(this);
@@ -299,6 +300,7 @@ class LightingScene extends CGFscene {
         this.pushMatrix();
         this.vehicleAppearances[this.currVehicleAppearance].apply();
         this.translate(-5,0,0);
+        //this.rotate(Math.PI, 0, 1, 0);
         this.car.display();
         this.popMatrix();
 
@@ -371,6 +373,30 @@ class LightingScene extends CGFscene {
         this.translate(-13, 0, 12);
         this.rotate(-Math.PI / 2, 0, 1, 0);
         this.crane.display();
+        this.popMatrix();
+
+        // Trees
+        this.pushMatrix();
+        this.translate(-19, 0, -10)
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-15, 0, -17)
+        
+        this.scale(1.1,1.1,1.1);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(19, 0, -15)
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(10, 0, -18)
+        this.scale(1.2,1.2,1.2);
+        this.tree.display();
         this.popMatrix();
 
         // ---- END Scene drawing section
