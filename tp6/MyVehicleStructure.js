@@ -336,7 +336,7 @@ class MyVehicleStructure extends CGFobject {
 
 	    //door handle left
 	    this.scene.pushMatrix();
-        this.scene.translate(3.4, 1, -1.3);
+        this.scene.translate(3.4, 1, -1.25);
         this.scene.scale(0.3, 0.05, 0.05);
        	this.metalAppearence.apply();
         this.quad.display();
@@ -344,19 +344,54 @@ class MyVehicleStructure extends CGFobject {
 
 		//door handle right
         this.scene.pushMatrix();
-        this.scene.translate(3.4, 1, 1.3);
+        this.scene.translate(3.4, 1, 1.25);
         this.scene.scale(0.3, 0.05, 0.05);
        	this.metalAppearence.apply();
         this.quad.display();
         this.scene.popMatrix();
 
-        //rearview mirror
+        //rearview mirror left
 	    this.scene.pushMatrix();
-	    this.scene.rotate(Math.PI/2, 0, 0, 1);
-	    this.scene.translate(-1, -3.9, -2);
-	    this.scene.scale(0.1, 0.1, 0.35);
+	    this.scene.translate(2.35, 1.35, -1.45);
+	    this.scene.scale(0.03, 0.03, 0.2);
 	    this.metalAppearence.apply();
-	   // this.cylinder.display();
+	   	this.cylinder.display();
+	    this.scene.popMatrix();
+
+	    this.scene.pushMatrix();
+	    this.scene.translate(2.38, 1.35, -1.45);
+	    this.scene.scale(0.03, 0.27, 0.2);
+	    this.metalAppearence.apply();
+	    this.quad.display();
+	    this.scene.popMatrix();
+
+	    this.scene.pushMatrix();
+	    this.scene.translate(2.39, 1.35, -1.45);
+	    this.scene.scale(0.01, 0.27, 0.2);
+	    this.glassAppearence.apply();
+	    this.quad.display();
+	    this.scene.popMatrix();
+
+	    //rearview mirror right
+	    this.scene.pushMatrix();
+	    this.scene.translate(2.35, 1.35, 1.25);
+	    this.scene.scale(0.03, 0.03, 0.2);
+	    this.metalAppearence.apply();
+	   	this.cylinder.display();
+	    this.scene.popMatrix();
+	    
+	    this.scene.pushMatrix();
+	    this.scene.translate(2.38, 1.35, 1.45);
+	    this.scene.scale(0.03, 0.27, 0.2);
+	    this.metalAppearence.apply();
+	    this.quad.display();
+	    this.scene.popMatrix();
+
+	    this.scene.pushMatrix();
+	    this.scene.translate(2.39, 1.35, 1.45);
+	    this.scene.scale(0.01, 0.27, 0.2);
+	    this.glassAppearence.apply();
+	    this.quad.display();
 	    this.scene.popMatrix();
 
         this.scene.popMatrix();
