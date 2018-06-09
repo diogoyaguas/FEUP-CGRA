@@ -4,7 +4,7 @@ Project for the Computer Graphics (CGRA) class of the Master in Informatics and 
 ### Team Members
 Diogo Filipe da Silva Yaguas<br>
 * Student Number: 201606165
-* E-Mail: 201606165@fe.up.pt
+* E-Mail: up201606165@fe.up.pt
 
 Maria João Senra Viana
 * Student Number: 201604751
