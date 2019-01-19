@@ -12,4 +12,4 @@ Maria João Senra Viana
 
 ### Grades
 
-* Project (tp6) - 17.9
+* Final Project - 17.9
